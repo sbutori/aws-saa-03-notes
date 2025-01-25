@@ -5,7 +5,7 @@ IAM Dropdown > Security Credentials > scroll down to "Create Access Key", click 
 
 Once Access Key is created, you can use Actions dropdown to Deactivate, Activate, and Delete. If you ever lose access to a key, you need to deactivate & delete it, then create a new one.
 
-## Download AWS CLI v2 
+## Download AWS CLI v2
 AWS CLI v2 (Windows) Installation - https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-windows.html
 
 AWS CLI v2 (macOS) Installation - https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-mac.html
@@ -33,4 +33,4 @@ COMMAND to test: 'aws s3 ls --profile iamadmin-production'
 
 SECURITY REMINDER: Never share your SECRET KEY. If leaked, delete and create new set of keys and re-configure in CLI
 
-TIP: If after you Configure CLI with credentials, you can delete the credential files (CSVs)
+TIP: After you Configure CLI with credentials, you can delete the credential files (CSVs)

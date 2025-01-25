@@ -27,9 +27,9 @@ After you finish SA Associate do the Role Based certs, then Specialty certs late
 
 # Scenario - Animals4life
 
-Animal rescue/awareness Org. Global company, 100 staff, 100 remote staff, etc etc. Small data-center is old, and data should be migrated out. 
+Animal rescue/awareness Org. Global company, 100 staff, 100 remote staff, etc etc. Small data-center is old, and data should be migrated out.
 Badly implemented AWS trial in SYD Region. Isolated Azure/GCP Pilots. All staff uses this infrastructure. Company runs lean but will get new tech
-if it helps business. 
+if it helps business.
 - On Premise: 192.168.10.0/24, Class C
 - AWS Pilot: 10.0.0.0/16, Class B
 - Azure Pilot: 172.31.0.0/16, Class B
@@ -38,7 +38,7 @@ Field workers on laptop, 3g/4g/ satellite for email/files, chat/planning, resear
 
 ## Problems: Hardware failing, datacenter decommissioned in 18months, so business needs to migrate out. New investment needed, not sure if on premise, azure, aws, etc. Previous AWS/Azure attempts didn't pan out. Distance to datacenter is sub-optimal for much of company. Lean/appropriately sized, but trouble with peak traffic. IT team sucks at cloud.
 
-## Ideal Outcomes: 
+## Ideal Outcomes:
 - Fast performance for all field workers
 - Able to deploy into new regions quickly when required
 - Low cost and scalable base infrastructure, cost close to 0 as possible while meeting reqs
@@ -67,7 +67,7 @@ When creating an AWS account you need to provide:
 
 Root Users can only access their own accounts. Initially, it is also the only user. Root user has full control over the one specific AWS account and any resources inside it. Root user CANNOT be restricted in any way. Protect the root username and password.
 
-### Billing 
+### Billing
 Credit Card used to open account is the Account Payment Method. Any billable usage is charged to this CC. "Pay-as-you-go" platform. There is a free tier which we use in this course.
 
 ### Security
@@ -88,7 +88,7 @@ By default, all access to an AWS account is denied except for the root user.
 4. Create an IAM user, IAMADMIN. Give permissions. Then we'll use this ID for the course.
 5. Create a second accound, Production. Will also have IAMADMIN user.
 
-## TIP: using one email for multiple accounts with Gmail. AWS accounts should be viewed as disposable, create as many as you need. Create a new account for each course. 
+## TIP: using one email for multiple accounts with Gmail. AWS accounts should be viewed as disposable, create as many as you need. Create a new account for each course.
 ### TIP Example: email is catguy@gmail.com. You can use + sign in email address to create 'unique' email addresses. Ex: catguy+AWSAccount1@gmail.com, catguy+AWSAccount2@gmail.com, etc etc. This is called a Dynamic Alias.
 
 Choose free tier AWS account after providing all account setup info (unique email, CC, verification.
@@ -156,15 +156,15 @@ Steps:
 8. Optional: Update alternate contacts in Account
 
 ### IAM (Identity and Access Management) Basics
-We first need to understand the identity situation. Accounts created have Root user will have full access. AWS account and Root user can be thought of as the same thing. 
+We first need to understand the identity situation. Accounts created have Root user will have full access. AWS account and Root user can be thought of as the same thing.
 
-Generally, you want to give access to other people in the companies, but with restricted access -- ONLY GIVE THEM PERMISSIONS REQUIRED TO DO A JOB, called "Least Priveleged Access". 
+Generally, you want to give access to other people in the companies, but with restricted access -- ONLY GIVE THEM PERMISSIONS REQUIRED TO DO A JOB, called "Least Priveleged Access".
 
 EXAM: IAM is a GLOBALLY RESILIENT service, so any data is always secure across all AWS regions.
 
 Any IAM's in an account are completely separate from any other accounts. IAM as a service can do as much as the Root user if given all permissions, exception being some billing stuff (but that can be activated).
 
-Inside IAM, you can create multiple identities. 
+Inside IAM, you can create multiple identities.
 
 IAM let's you create 3 types of identity objects:
 - User
@@ -175,7 +175,7 @@ Users: Humans or applications that need access to your AWS account. An applicati
 
 Group: Collections of related users. All dev team users, finance, HR, etc.
 
-Roles: Can be used by AWS Services or if you want to grant external access to your account. Used to grant access to services in your account to an uncertain number of entities. Eg. If you want all EC2 instances in your account to access the Simple Storage Service (S3), you can create a role which grants access and allow instances to use that role. 
+Roles: Can be used by AWS Services or if you want to grant external access to your account. Used to grant access to services in your account to an uncertain number of entities. Eg. If you want all EC2 instances in your account to access the Simple Storage Service (S3), you can create a role which grants access and allow instances to use that role.
 
 TIP: ROLES should be used when the number of entities needing access is *uncertain*.
 
@@ -202,10 +202,10 @@ Set up AIM ID with Admin permissions
 
 Search "IAM" > IAM Dashboard
 
-To sign on with IAM identities, use sign-in URL: http://[account-id].signin.aws.amazon.com/console. 
+To sign on with IAM identities, use sign-in URL: http://[account-id].signin.aws.amazon.com/console.
 -- To make friendlier URL, set alias.
 
-### To set alias, make it globablly unique. 
+### To set alias, make it globablly unique.
 1. Within IAM Dashboard, find right-side AWS Account info, find "Account Alias", click "Create".
 - Must be a globablly unique ID. I am using "ta-cantrill-training-aws-general"
 -- Now URL is https://ta-cantrill-training-aws-general.signin.aws.amazon.com/console
@@ -234,8 +234,8 @@ Access AWS via command line or APIs. This is done using IAM access keys.
 - Credential Leak: If someone knows your username (public) and password (private)
 - Unlike username/PW, IAM user can have TWO access keys
 - Access key actions: create, delete, made inactive, made active. Default: Active state
-- Access keys are formed from two parts: 
-1) Access Key ID 
+- Access keys are formed from two parts:
+1) Access Key ID
 2) Secret Access Key
 --AWS provides both when key is created.
 - Once the key is generated, you CANNOT access the Secret Access Key part again
@@ -252,7 +252,7 @@ IAM Dropdown > Security Credentials > scroll down to "Create Access Key", click 
 
 Once Access Key is created, you can use Actions dropdown to Deactivate, Activate, and Delete. If you ever lose access to a key, you need to deactivate & delete it, then create a new one.
 
-### Download AWS CLI v2 
+### Download AWS CLI v2
 AWS CLI v2 (Windows) Installation - https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-windows.html
 
 AWS CLI v2 (macOS) Installation - https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-mac.html
@@ -318,13 +318,13 @@ An Availability Zone is an isolated location within an AWS region. An edge locat
 
 NOTE: Visit: infrastructure.aws
 
-Service Resilience 
+Service Resilience
 - Globally Resilient: Operates globally with a single DB and replicated across multiple regions. World would need to fail to experience a full outage here. Eg. IAM
 - Regionally Resilient: Operate in single region with one dataset in a region. Replicate data to AZs for resilience.
 - Availability Zone Resilient: Prone to failure as they have less redundancies.
 
 ### AWS Default Virtual Private Cloud (VPC)
-A Virtual Network inside AWS. VPCs are regional services; regionally resilient. They operate from multiple AZ's in a region. 
+A Virtual Network inside AWS. VPCs are regional services; regionally resilient. They operate from multiple AZ's in a region.
 - A VPC is 1 account and 1 region, cann't be spread across multiple accounts/regions
 - Private and isolated unless configured otherwise
 - Default VPC (max 1 per region, pre-configured) and Custom VPCs (can have many)
@@ -333,7 +333,7 @@ A Virtual Network inside AWS. VPCs are regional services; regionally resilient. 
 EXAM: VPCs are REGIONALLY resilient
 
 #### Default VPC
-There can only be one default VPC per region, and they can be deleted and recreated from the console UI. Unless configured otherwise, VPC is entirely private/isolated. 
+There can only be one default VPC per region, and they can be deleted and recreated from the console UI. Unless configured otherwise, VPC is entirely private/isolated.
 - VPC CIDR: Start and end range of IP addresses VPC can use. If anything needs (and is allowed to) communicate with VPC, it needs to communicate to the VPC CIDR
 - Default VPC only gets 1 CIDR IP range. Can't change it.
 - Default VPC provides Internet Gateway (IGW), Security Group, and NACL
@@ -373,7 +373,7 @@ States to Know: Running, Stopped, Terminated
 - When instance is launched and provisioned, it moves to Running. If instance is shut down, it is Stopped
 - Instance can be terminated, but this cannot be reversed
 
-These States influence the charges for an instance. 
+These States influence the charges for an instance.
 - Stopped instance uses less resources, therefore less expensive. You won't be charged for "running" the instance
 - Regardless of Running or Stopped, storage is still allocated and you'll still be charged for EBS storage even if instance is stopped
 - To guarantee 0 cost on instance, you must Terminate. Termination is irreversible
@@ -405,7 +405,7 @@ Root Volume: AMI contains boot volume of instance, boots O/S
 
 Block Device Mapping: Config that links volumes that AMI has and how they're presented to O/S. Ie. Which is boot volume, which is data volume
 
-#### Connecting to EC2: 
+#### Connecting to EC2:
 - Connect to Windows instances using RDP (Remote Desktop Protocol), port 3389
 - Connect to Linux distros use SSH protocol, port 22. Log in using SSH key pair
 
@@ -433,7 +433,7 @@ Global Storage Platform - regional based/resilient. Access from anywhere.
 ##### S3 Objects
 What is an Object? An object is a file and any optional metadata that describes the file.
 
-Two components and some associated metadata: 
+Two components and some associated metadata:
 1. Object Key. identifies object in a bucket
 2. Value. data or contents of the object. Object size can range from 0 bytes to 5 terabytes (TB) in size.
 Metadata: Version ID, Metadata, access control, subresources
@@ -464,7 +464,7 @@ Containers created in a specific AWS region; default place to go to in order to 
 - Great for 'offload'
 - S3 should be your default INPUT and/or OUTPUT to MANY AWS products
 
-# EXAM: Where to store data in AWS? S3 should be default answer 
+# EXAM: Where to store data in AWS? S3 should be default answer
 
 # QUIZ: What is true of Simple Storage Service (S3)
 - S3 is an AWS Public Service
@@ -475,10 +475,10 @@ Containers created in a specific AWS region; default place to go to in order to 
 Create, interact with bucket, upload to bucket, interact with uploaded objects
 - As S3 is Global, you can't select a Region in advance
 
-STEPS: Move to S3 Console > click 'Create bucket' > name 'koalacampaign987654123' (must be globally unique) > select Region (default N.VA) > untick "Block *all* Public Access (this just enables you to Enable public access later) > click "Create Bucket" 
+STEPS: Move to S3 Console > click 'Create bucket' > name 'koalacampaign987654123' (must be globally unique) > select Region (default N.VA) > untick "Block *all* Public Access (this just enables you to Enable public access later) > click "Create Bucket"
 
-#### Amazon Resource Name (ARN): All resources in AWS have a unique identifier, the ARN. 
-To see bucket ARN, Amazon S3 > Buckets > click the bucket you want > 'Properties' tab > Amazon Resource Name 
+#### Amazon Resource Name (ARN): All resources in AWS have a unique identifier, the ARN.
+To see bucket ARN, Amazon S3 > Buckets > click the bucket you want > 'Properties' tab > Amazon Resource Name
 
 #### DEMO: Upload files to Bucket
 Amazon S3 > Buckets > click the bucket you want > Objects, click Upload > Select Files > Use default settings > click Upload
@@ -500,16 +500,16 @@ A tool which lets you create, update, delete infrastructure in AWS using Templat
 From the Documentation: AWS CloudFormation is a service that helps you model and set up your AWS resources so that you can spend less time managing those resources and more time focusing on your applications that run in AWS. You create a template that describes all the AWS resources that you want (like Amazon EC2 instances or Amazon RDS DB instances), and CloudFormation takes care of provisioning and configuring those resources for you
 
 #### What makes a template? Components:
-- All templates have a list of resources. This is the only mandatory item 
+- All templates have a list of resources. This is the only mandatory item
 - Description. Free text field for the author to provide details on template. (If you have AWSTemplateFormatVersion, Description MUST follow it in YAML/JSON
 - Metadata. Can control the UI (groupings, order, labels, descriptions), as well as other things (to be covered later)
 - Parameters. Value parameters, default values, etc.
 - Mappings. Create lookup tables.
-- Conditions. Allows decision making in the template. Step 1 create condition, Step 2 use condition 
+- Conditions. Allows decision making in the template. Step 1 create condition, Step 2 use condition
 - Outputs. Once template is finished it can present outputs like admin or setup adddress, instance ID
 
 #### How does CFN use Templates?
-Eg. Template that creates EC2 resource. Resources defined in CFN Templates are called Logical Resources. 
+Eg. Template that creates EC2 resource. Resources defined in CFN Templates are called Logical Resources.
 - When template is given to CFN, CFN creates a stack which is a living and active representation of a Template. Stack is created with CFN does something with a template.
 - For any logical resources in the stack, CFN makes a corresponding physical resourse in your AWS account. It's CFNs job to keep logical and physical resources in sync. Physical resource: A resource created by creating a CloudFormation Stack
 - If you delete a CFN Stack, its logical resources are deleted and CFN subsequently deletes the physical resources
@@ -518,12 +518,12 @@ Eg. Template that creates EC2 resource. Resources defined in CFN Templates are c
 
 ### DEMO: Simple Automation w/ CFN; Creating EC2 with CFN
 
-"CloudFormation" or CFN in Search > click "Create Stack" > Template is ready > Upload a Template File > use Demo file (ec2instance.yaml) > click "Next" > Name: "cnfdemo1" > leave the rest default > "Next" > skip config "Next" > Review cfndemo1: Capabilities, check the box 
+"CloudFormation" or CFN in Search > click "Create Stack" > Template is ready > Upload a Template File > use Demo file (ec2instance.yaml) > click "Next" > Name: "cnfdemo1" > leave the rest default > "Next" > skip config "Next" > Review cfndemo1: Capabilities, check the box
 - Template auto-creates an s3 bucket when you upload a Template
-- YAML file: 
+- YAML file:
 -- LatestAmiID: Instead of giving latest AMI ID, you can make Type a "latest version" AMI
 -- CloudFormation Functions are used within YAML Outputs to get values like InstanceID, Availability Zone (AZ), Public IP of EC2, etc. Eg. !Ref, !GetAtt
--- Resources Component is the main one in the file. In this temmplate, an instance role and instance role profile are being created (SessionManagerRole, SessionManagerInstanceProfile) -- covered later. 
+-- Resources Component is the main one in the file. In this temmplate, an instance role and instance role profile are being created (SessionManagerRole, SessionManagerInstanceProfile) -- covered later.
 -- Also being created in the Resources portion of the template: EC2 instance, InstanceSecurityGroup. Port 22 (SSH)/Port 80 (HTTP)
 -- Resources: EC2Instance: Properties: InstanceType: "t2.micro" -- Free tier elligible
 - After Submitting stack to be created, you'll see that each Resource being created is done so by an Event, "CREATE_IN_PROGRESS", "CREATE_COMPLETE". This whole process takes some time before all of cnfdemo1 is showing CREATE_COMPLETE
@@ -557,8 +557,8 @@ https://learn.cantrill.io/courses/1820301/lectures/41301629
 4. Metrics / Contitions: Conditions: Static, Whenever CPU Util is Greater/Equal 15% > "Next" > Remove Notification > Alarm Name "cloudwatchtestHIGHCPU" > Next/Create Alarm
 5. Back to EC2, connect to EC2 with Instance Connect
 6. Need to install Stress app > command: sudo yum install stress -y
-7. Stress Test: command: stress -c 1 -t 3600. Make sure CloudWatch alarm is OK status before entering this command. 
-8. Clean up: Delete CloudWatch Alarm and Terminate EC2 instance. Delete EC2 Security Group 
+7. Stress Test: command: stress -c 1 -t 3600. Make sure CloudWatch alarm is OK status before entering this command.
+8. Clean up: Delete CloudWatch Alarm and Terminate EC2 instance. Delete EC2 Security Group
 
 Detailed CloudWatch Monitoring: Enables you to monitor, collect, and analyze metrics about your instances through Amazon CloudWatch. Additional charges apply if enabled. If no value is specified the value of the source template will still be used. If the template value is not specified then the default API value will be used.
 
@@ -566,12 +566,12 @@ Detailed CloudWatch Monitoring: Enables you to monitor, collect, and analyze met
 ## Shared Responsibility Model
 Vendor and User shared responsibilities. This applies from a security perspective so you know which elements you and the vendor manage.
 - Customer is responsible for security 'in' the cloud: client-side data encryption, server-side encryption, networking traffic protection, O/S, platform, IAM, apps
-- AWS responsible for security 'of' the cloud 
+- AWS responsible for security 'of' the cloud
 
 
 ## High-Availability (HA) vs Fault-Tolerance (FT) vs Disaster Recovery (DR)
 ### High-Availablily - Aims to ensure an agreed level of operational performance, usually uptime, for a higher than normal period. Doesn't aim to stop failure, but online and providing services as often as possible. Fix should be as quick as possible, often with automation to bring systems back into service quickly; maximizing a system's online time.
-- System availability is in the form of percentage uptime. Three 9's -- Up 99.9% of the time==8.77 hours/year downtime. Five 9's==5.26 minutes/year down time
+- System availability is in the form of percentage uptime. Three 9's -- Up 99.9% of the time=8.77 hours/year downtime. Five 9's=5.26 minutes/year down time
 - Costs required to implement: design decisions and automation
 ### Fault Tolerance - The property that enables a system to continue operating properly in the event of the failure of some (one or more faults within) of its components. Fault tolerance systems work through failure with no disruption; operating through failure.
 - Cost of fault tolerance can be expensive because of redundancies and failure toleration via duplicate system components
@@ -602,9 +602,9 @@ Search / Nav to R53 console > Registered Domains > click "Register Domains" > Se
 ## DNS Record Types
 - Nameserver Records (NS). Allows delegation to occur in DNS. Eg. .com zone
 - A Records / AAAA Records. Map host names to IP addresses. A record = IPv4, AAAA = IPv6
-- CNAME Record. Canonical name. Let's you create equivalent of DNS shortcuts; host-to-host records. CNAMEs reduce admin overhead. 
+- CNAME Record. Canonical name. Let's you create equivalent of DNS shortcuts; host-to-host records. CNAMEs reduce admin overhead.
 - MX Record. For email. How a server can find the mail server (SMTP) for a specific domain.
-- TXT Records. Add arbitrary text to a domain; add additional functionality. Eg. Prove domain ownership. 
+- TXT Records. Add arbitrary text to a domain; add additional functionality. Eg. Prove domain ownership.
 
 EXAM: CNAMEs cannot point directly at an IP address, only other names.
 
@@ -625,10 +625,10 @@ Numeric value that can be set on DNS records. Getting result from authoritative 
 
 
 ## IAM Identity Policies
-Policies attached to identities in AWS. 
+Policies attached to identities in AWS.
 1. Understand their architecture 2. Gain ability to read/understand a policy 3. Learn to read/write your own
 
-IAM Policy is a set of security statements to AWS, granting or denying product/features. 
+IAM Policy is a set of security statements to AWS, granting or denying product/features.
 - IAM Identity Policy Document: 1 or more statements, created using JSON
 -- Statement Id or Sid: Let's you identify a statement and what it does
 -- Action: Can be specific individual action, a wild card, or list of multiple independent actions
@@ -741,7 +741,7 @@ How groups can be used to hold permissions for group members
 
 ### IAM Roles Policies - Two Types
 1. Trust Policy - The trust policy specifies which trusted account members are allowed to assume the role.
-2. Permissions Policy - The permissions policy grants the user of the role the needed permissions to carry out the intended tasks on the resource. 
+2. Permissions Policy - The permissions policy grants the user of the role the needed permissions to carry out the intended tasks on the resource.
 - Temporary Security Credentials: Given when a Role gets assumed by something that is allowed to assume it. These are like access keys, but time limited.
 -- Generated by STS, Secure Token Service. "sts:AssumeRole"
 -- Checked against Permissions Policy
@@ -773,7 +773,7 @@ EXAM: External Accounts / External Identities cannot be used to directly access 
 
 ### IAM Roles: When to use Roles: Cross-Account Access
 Eg. Two AWS accounts. Your Account and Partner Account
-- Your account offers an application which processes scientific data and they want you to store data in Partner Account's s3 bucket. Your account has 1000s of ID's and they don't want this data in their account.  
+- Your account offers an application which processes scientific data and they want you to store data in Partner Account's s3 bucket. Your account has 1000s of ID's and they don't want this data in their account.
 - In this situation, use a Role in the Partner Account. Any objects uploaded by this Role into the Partner Account means the Partner Account owns these objects
 - Roles can be used cross-account to access individual resources, or access to whole accounts
 
@@ -795,7 +795,7 @@ One group given ability to create roles, other group gets ability to use the SL 
 To use pre-existing role with a service without having to create / edit a new role, you need to provide PassRole Permissions.
 
 To pass a role (and its permissions) to an AWS service, a user must have permissions to pass the role to the service. This helps administrators ensure that only approved users can configure a service with a role that grants permissions. To allow a user to pass a role to an AWS service, you must grant the PassRole permission to the user's IAM user, role, or group.
-- "Pass the role permissions" 
+- "Pass the role permissions"
 - A method inside AWS that gives you the ability to implement Role Separation
 -- An important AWS security architecture
 
@@ -837,7 +837,7 @@ Allows you to restrict what Member Accounts can do.
 For new account, you just need a valid, unique email address. This way, there is no invite process (like there is with having pre-existing accounts join an AWS Org).
 
 ### AWS Org Changes Best Practice for User Logins / Permissions
-With Orgs, you don't need IAM users inside every AWS Account. Instead, use Roles to allow IAM Users to access other accounts. 
+With Orgs, you don't need IAM users inside every AWS Account. Instead, use Roles to allow IAM Users to access other accounts.
 - Best practice is single account to handle all logins
 - Large enterprise may use Identity Federation to pull in on-premise identities for logging in to login account
 - Role Switch: Once Member accounts are logged in, they can Role Switch from login account into other Member Accounts
@@ -854,7 +854,7 @@ Steps:
 4. Manually adding a Role to an invited account > In Prod account nav to IAM > Roles > Create Role > Type of Entity: AWS Account > get account ID of General AWS Org Account > select Another AWS Account > Paste Account ID > Add Permissions: AdministratorAccess > Next > name "OrganizationAccountAccessRole" > Create Role. In IAM > Roles >  OrganizationAccountAccessRole > Trust Relationships, you'll see the General Account ID referenced as a Trusted Entity
 5. Role Switch: From General to Production Account. Copy Production ID > Main Dropdown "Switch Role" > click "Switch Role" > paste Prod ID > name of Role created "OrganizationAccountAccessRole" > Display Name "Prod" > select color Red > Create / Switch Role. You'll see Display name "Prod" on top right menu drop down. You can also SWITCH BACK
 
-6. Create new Account within Org. AWS Orgz > Add Account > Create an AWS Account > name "OrganizationAccountAccessRole" > Create 
+6. Create new Account within Org. AWS Orgz > Add Account > Create an AWS Account > name "OrganizationAccountAccessRole" > Create
 7. After new Account created, copy its account ID > dropdown Switch Role > switch to DEV role
 
 
@@ -926,7 +926,7 @@ EXAM: CloudWatch is a REGIONALLY resilient service
 - Trail: In order to customize CloudTrail service, you need to create 1 or more "Trails". Unit of configuration within CloudTrail. Logs events for the AWS region it's created in.
 -- One-Region Trail: Only EVER in the region it's created in. Only logs events for this region
 -- All-Regions Trail: Collection of Trails within every AWS Region, but logged as one trail. If AWS adds new regions, they get automatically added to All Region Trails
-- Global Service Events: A very small number of services log events globally to ONE region (us-east-1). Eg. IAM, STS, CloudFront. A Trail needs this enabled in order to log these events. Should be enabled in the created Trail by default 
+- Global Service Events: A very small number of services log events globally to ONE region (us-east-1). Eg. IAM, STS, CloudFront. A Trail needs this enabled in order to log these events. Should be enabled in the created Trail by default
 
 EXAM: CloudTrail is a REGIONAL Service. A Trail logs events for the AWS region it's created in
 
@@ -973,10 +973,10 @@ EXAM: S3 bucket names MUST be GLOBALLY UNIQUE
 - After creating, can take some time for data to start appearing
 2. Open the s3 link on the new Trail > move down through CloudTrail/ > View json.gz (can decompress with Chat GPT) to verify Trail is working
 3. In new tab, nav to CloudWatch > Log Groups > Log Streams all in us-east-1
-- Account ID is contained within Log Stream file name. 
+- Account ID is contained within Log Stream file name.
 - In Cloud Trail Event History, this will log Events for 90 days even if you have no Trail created. Trails allow you to customize what happens to the data
 
-- In this demo, we created a Trail 1) to store data in s3 2) to put it into CloudWatch Logs 
+- In this demo, we created a Trail 1) to store data in s3 2) to put it into CloudWatch Logs
 
 NOTE: s3 charges based on storage. If CloudTrail is enabled, the logs will accumulate possibly past Free Tier
 - To Avoid logging events and incurring charges: Go to Trails, "Stop Logging"
@@ -1006,7 +1006,7 @@ A well-architected multi-account environment. Home Region is the one you deploy 
 #### CT: Guard Rails
 - Rules for multi-account governance.
 - Three types: Mandatory, Strongly Recommended, Elective
-- GR functions in 2 Ways: 
+- GR functions in 2 Ways:
 -- Preventative: Stop you from doing things (AWS Org SCP). Enforced or not enabled. Eg. Allow/deny regions, disallow bucket policy changes (prevent things from happening)
 -- Detective: Compliance checks (AWS Config Rules) for maintaining Best Practices. Types: Clear, In Violation, Not Enabled. Eg. Detect / confirm if CloudTrail has been enabled on  your account (identify things happening)
 
@@ -1042,7 +1042,7 @@ NOTE: You can only attach IDP's to ID's in your OWN account. Only controlling se
 
 - RPs can ALLOW/DENY anonymous principals -- even those not authenticated by AWS; anonymous access
 
-### S3 Sec: TL;DR Bucket Policies can grant access for other AWS accounts, and anonymous access 
+### S3 Sec: TL;DR Bucket Policies can grant access for other AWS accounts, and anonymous access
 
 RP's have one major difference to Identity Policies: The presence of an explicit Principal Component.
 - The Principal part of an RP defines which Principals are affected by the policy (who is impacted?)
@@ -1081,23 +1081,23 @@ Accessing S3 is generally done via APIs. Static Website Hosting is a feature of 
  - When Static Hosting is enabled, a static website hosting endpoint is created. Name of endpoint is based on bucket name and region
  -- Want a custom Domain? (via R53)... if so, bucket name matters. Name of Bucket MUST match domain name
  --- Eg. Want a site called top10.animals4life.org? Name your bucket "top10.animals4life.org"
- 
+
  ### S3 Static Hosting: What else is S3 Static Hosting Good for (other than hosting static websites?
  - Example 1: Offloading. If you have a site with lots of images hosted by compute service, you can offload the media to an S3 bucket w/ static hosting to save money (compute is usually pricier). Offload large data to S3.
  - Example 2: Out-of-band pages. In IT, this means method of accessing something outside of the main way. Example: You want to perform server maintenance and the server needs to go down. You can put an "Under Construction" static page in S3 to put up when production server is down.
- 
+
  ## S3 Pricing
  Pricing for S3 forms of a number of major components:
  - Cost to Store Data: per gigabyte per month charge
  - Data Transfer Free: for every Gb of data transferred out of S3, per gigabyte charge
  - Data Requests: GET, POST, list, port. Cost per 1,000 operations
- 
+
 ### S3: What's FREE?
  - 5Gb monthly storage
  - 20,000 GET requests
  - 2,000 PUT requests
- 
- 
+
+
 ## DEMO Creating a Static Website with S3
  1. Create S3 Bucket > bucket name "[custom-globally-unique]" > uncheck "Block All Public Access" and acknowledge > Create Bucket
  2. Enable Static Website Hosting > access new bucket > Properties tab > scroll to bottom, Edit Static Website Hosting, Enable > Hosting Type: Static > Index Document "index.html" > Error Document "error.html" > In properties, scroll down and copy new static URL
@@ -1108,17 +1108,17 @@ Accessing S3 is generally done via APIs. Static Website Hosting is a feature of 
  6. You can now visit your website
  Extra: If you Registered a domain in R53, you can customize your URL. R53 > Hosted Zones > access your domain > Create Record > select Simple Routing > Record Name Eg. "top10".animals4life.io > choose Endpoint "Alias to S3 website endpoint" > Region: us-east-1 > S3 endpoint, select your bucket > click "Define simple record" > Create Records. Now Cantrill can go to top10.animals4life.io. Remember: Domain name and bucket name must match exactly to do this
  7. Clean Up: Empty bucket, delete bucket
- 
- 
+
+
  ## Object Versioning & MFA Delete (EXAM)
 - Object versioning is a feature which can be enabled on an S3 bucket - allowing the bucket to store multi versions of objects
 - These objects can be referenced by their version ID to interact directly - or omit this to reference the latest version of an object
 - Objects aren't deleted - object deletion markers are put in place to hide objects.
-- Object Versioning starts off in a Disabled state. Once enabled, you CANNOT disable it again. Instead, you can Suspend it. A suspended bucket can be re-enabled. 
+- Object Versioning starts off in a Disabled state. Once enabled, you CANNOT disable it again. Instead, you can Suspend it. A suspended bucket can be re-enabled.
 
 EXAM: A bucket with Object Versioning enabled can NEVER have OV disabled again
 
-Without versioning, Objects are identified solely by the Object's name, which is unique in the bucket. If you modify an object, the original version of the object is replaced. Versioning lets you store multiple versions of objects within a bucket/ 
+Without versioning, Objects are identified solely by the Object's name, which is unique in the bucket. If you modify an object, the original version of the object is replaced. Versioning lets you store multiple versions of objects within a bucket/
 - Operations which would modify an Object instead creates a new version
 - Another attribute on an Object in a Bucket (other than Key (name)) is 'id'. A bucket without Versioning enabled has Object id's of 'null'
 -- With Versioning enabled, id's are active. Modifying an object will create a new object with a new id. The newest Object version is called the Current or Latest Version
@@ -1128,13 +1128,13 @@ Without versioning, Objects are identified solely by the Object's name, which is
 With Versioning enabled, if we indicate to S3 we want to delete the object without giving Version ID, S3 will create a new version of the object with a Delete Marker. In reality, the Object is just hidden. You CAN delete a Delete Marker, which re-activates previous versions.
 - To truly delete a particular object, you need to specify the id
 
-### Object Versioning: REMINDERS: 
+### Object Versioning: REMINDERS:
 - Versioning CANNOT be disabled after activating, only suspended (and suspending doesn't remove old versions, so you're still billed for all of it)
 - Space is consumed by all versions of the object and you are billed for ALL versions
 - Only way to return to reduced cost due to Versioning is to delete the bucket and re-add all content to another bucket that doesn't have Versioning enabled
 
 ### MFA Delete
-Something enabled withing the Versioning config in a bucket. This makes MFA required to change a bucket's versioning state (To change from Enabled to Suspended, etc). 
+Something enabled withing the Versioning config in a bucket. This makes MFA required to change a bucket's versioning state (To change from Enabled to Suspended, etc).
 - MFA is required to Delete Versions. When performing API calls to change/delete Version, you need to provide serial number of MFA token AND code, concatenated
 
 
@@ -1156,14 +1156,14 @@ REMEMBER: Versioning Enabled can incur significantly higher costs than Versioing
 
 
 ## S3 Performance Optimization
-Single PUT Upload: Up to 5GB Max (don't trust single PUT with this much data), 1 blob of data. Single stream transfer uploaded using s3:PutObject API PUT call. If errors out/fails, full data stream has to restart, making it unreliable. Speed and reliability affected by this sub-optimal transfer. 
+Single PUT Upload: Up to 5GB Max (don't trust single PUT with this much data), 1 blob of data. Single stream transfer uploaded using s3:PutObject API PUT call. If errors out/fails, full data stream has to restart, making it unreliable. Speed and reliability affected by this sub-optimal transfer.
 
-Multipart Upload: MINIMUM size 100MB. Improves speed and reliability compared to Single Put Upload. Breaks data stream into parts which can break and restart separately, making it more resilient. Always choose multipart beyond 100MB upload. 
+Multipart Upload: MINIMUM size 100MB. Improves speed and reliability compared to Single Put Upload. Breaks data stream into parts which can break and restart separately, making it more resilient. Always choose multipart beyond 100MB upload.
 - Upload can be split into max of 10,000 parts, parts ranging from 5MB -> 5GB. Each part can fail and restart in isolation; risk of uploading large amounts of data is reduce. Transfer rate is increased as you are uploading in parallel, more effectively using internet bandwidth
 - The last remaining part can be less than 5MB
 
 S3 Transfer Acceleration:
-- How Global Transfer works: Data does not travel in the most efficient route, data can take indirect paths and potentially slows down from hop to hop. 
+- How Global Transfer works: Data does not travel in the most efficient route, data can take indirect paths and potentially slows down from hop to hop.
 - S3 Transfer acceleration selects the closest, best-performing AWS Edge location and sends directly to S3 bucket. Edge Location transits data over AWS Global Network instead of via public internet (public internet is flexible and reliable over fast). Internet is like public transit with many layovers, whereas AWS Global Network is like a direct flight.
 - By Default, Transfer Acceleration is Disabled on an S3 Bucket
 - Bucket naming restrictions for Transfer Acceleration: no periods in name, must be DNS compatible
@@ -1205,14 +1205,14 @@ Earlier, it was noted that KMS Keys can only perform cryptoOps on data 4KB or le
 - KMS Keys are ISOLATED to a REGION and never leave
 - Multi-region keys discussed in a different lesson
 - Within KMS, keys are either AWS owned or Customer owned. AWS Owned are for use in multiple accounts and operate in the background
--- Two types of Customer Owner 1) AWS Managed (auto-created by AWS services, like S3) 2) Customer Managed (created explicitly by customer to be used by app or AWS svc 
+-- Two types of Customer Owner 1) AWS Managed (auto-created by AWS services, like S3) 2) Customer Managed (created explicitly by customer to be used by app or AWS svc
 -- Customer Managed Customer Owned KMS Keys: More configurable. AWS Managed can't really be customized
 - Aliases: shortcuts to keys. Aliases are PER REGION. Neither aliases or keys are Global, by default
 
 ### KMS: Key Rotation
 When the physical backing material used to perform cryptoOperations is changed at regular intervals (usually once annually)
 - KMS Keys support key rotation
-- Customer Key Rotation is optional 
+- Customer Key Rotation is optional
 - When key is rotated, material (data) is changed and NOT the logical key
 
 ### KMS: Permissions (Policies / Security)
@@ -1236,13 +1236,13 @@ aws kms encrypt \
     --plaintext fileb://battleplans.txt \
     --output text \
     --query CiphertextBlob \
-    | base64 --decode > not_battleplans.enc 
+    | base64 --decode > not_battleplans.enc
 5. Receiver needs to Decrypt the cihpertext. Enter below lines into Shell:
 aws kms decrypt \
     --ciphertext-blob fileb://not_battleplans.enc \
     --output text \
     --query Plaintext | base64 --decode > decryptedplans.txt
-6. Clean Up: Select key > Key Actions: Schedule for deletion (waiting period 7-30 days, input 7) > Confirm > Schedule deletion 
+6. Clean Up: Select key > Key Actions: Schedule for deletion (waiting period 7-30 days, input 7) > Confirm > Schedule deletion
 
 
 ## SSE-S3 (AES256)
@@ -1252,9 +1252,9 @@ Step through the various encryption options available within S3 and finish by lo
 - Client-Side Encryption (CSE). S3 never sees plaintext
 
 ### SSE-S3: SSE VS CSE: How data is stored on disk in an encrypted way; encryption at rest
-- Path: Users/App <-> S3 Endpoint <-> S3 Storage. 
+- Path: Users/App <-> S3 Endpoint <-> S3 Storage.
 -- In transit: On both SSE/CSE, Data in transit between User/S3 Endpoint is encrypted in transit.
--- AT REST is what we're focusing on. 
+-- AT REST is what we're focusing on.
 --- In CSE, Objects being uploaded are encrypted by the client before they ever leave client-side. AWS will never see data in plain text form. In CSE, you own keys, process, and tooling
 --- In SSE, even though data is initially encrypted in-transit using HTTPS, the Objects themselves are NOT initially encrypted. From User > S3 Endpoint, data is in its original form. At S3 endpoint, the data gets encrypted and delivered to S3 Storage as ciphertext.
 
@@ -1312,7 +1312,7 @@ NOTE: Not retroactive, so previously created S3 bucket objects will still be KMS
 ### Intelligent-Tiering
 
 ### Standard
-The Default. Stored objects stored across AT LEAST 3 AZs; can cope with multi-AZ failure; this provides 11 9's of durability (if store 10mil objects, on avg you might lose 1 object every 10,000 years). 
+The Default. Stored objects stored across AT LEAST 3 AZs; can cope with multi-AZ failure; this provides 11 9's of durability (if store 10mil objects, on avg you might lose 1 object every 10,000 years).
 - Should be used for frequently accessed data that is IMPORTANT and NON-REPLACEABLE
 - Replication uses MD5 Checksums and Cyclic Redundancy Checks (CRCs) to detect and fix data corruption
 - Successful receipt and storage in S3? S3 API endpoint returns 'HTTP/1.1 200 OK'
@@ -1391,7 +1391,7 @@ EXAM: Intelligent-Tiering is designed for long-lived data where usage is CHANGIN
 Allows objects storage classes to be changed and objects deleted automatically. Step through S3 lifecycle management/configuration/rules both in theory and via an S3 console example
 - You can create lifecycle rules on S3 buckets which can auto-transition or expire objects in a bucket. Great for objects that have a life cycle (activity on object is predictable)
 - Lifecycle Configuration is a set of RULES that consist of ACTIONS. Rules can be applied to a whole Bucket or groups of objects in a bucket if defined by prefixes/tags
-- Two types of Actions applied (both work on versions if Object Versions are enabled on bucket): 
+- Two types of Actions applied (both work on versions if Object Versions are enabled on bucket):
 -- 1. Transition Actions: Change storage class of affected objects
 -- 2. Expiration Actions: Delete objects/object versions
 EXAM: S3 ONE ZONE-IA CANNOT transition into S3 Glacier-Instant Retrieval. Transition can't go up the waterfall of classes, only down. See waterfall visual
@@ -1411,7 +1411,7 @@ S3 has two replication features which allow objects to be replicated between SOU
 With Cross-Region Replication, The Destination Bucket, b/c it's in a different AWS account, doesn't trust the Source account or its IAM Role that gets created for Replication purposes by Source Bucket. If configuring replication between different accounts, you have to create a Bucket Policy in the Destination Bucket which allows the Source IAM role to write/replicate into the Destination bucket.
 
 ### S3 Replication - Options:
-1st option: What you replicate. Default is entire Source bucket to Destination bucket (everything in it), OR subset. 
+1st option: What you replicate. Default is entire Source bucket to Destination bucket (everything in it), OR subset.
 - For subset, create a rule that adds a filter to filter objects by prefix or tags
 2nd: Storage Class to be used. The Default is to use the same class, but you can choose a cheaper class if this data is secondary.
 EXAM: Default Storage Class to use for S3 Replication is to maintain the same storage class as found on the Source Bucket, but you can override that in the replcation configuration (good if Destination Bucket will contain secondary data)
@@ -1449,7 +1449,7 @@ Create 2 S3 buckets - one in N. Virginia, the other in N. California and configu
 3. Enable Static Website on Source > Properties Tab > Static website hosting: edit: Enable > type: static website > index doc "index.html"/error doc "index.html" > Save changes
 4. Edit Source bucket Permissions for Public Access > Permissions tab > uncheck Block All Public Access > confirm > Save changes
 5. To made Source Bucket public, add policy > Permissions tab > Bucket Policy "edit" > from lesson docs, paste JSON, replace Resource arn before the "/*" > Save
-6. Create Destination Bucket & Set Permissions/Policy > Create Bucket > name of dest "destinationbucketta[random number]" > AWS Region: us-west-1 > uncheck Block All Public Access > Properties tab, Enable Static website hosting > Hosting type: static > index/error docs "index.html" > Save changes > Permissions tab, edit Bucket policy, paste JSON, update ARN, Save 
+6. Create Destination Bucket & Set Permissions/Policy > Create Bucket > name of dest "destinationbucketta[random number]" > AWS Region: us-west-1 > uncheck Block All Public Access > Properties tab, Enable Static website hosting > Hosting type: static > index/error docs "index.html" > Save changes > Permissions tab, edit Bucket policy, paste JSON, update ARN, Save
 7. Enable Cross-Region Replication (CRR): Source Bucket Management tab > Create replication rule > Enable Versioning > Replication rule name "staticwebsiteDR" > Status "Enabled" > Choose Rule Scope: "Apply to All objects in the bucket" > Destination: Browse S3, find destination bucket, enable versioning > IAM Role: dropdown "create new role" > Create replication rule > Replicate Existing Obejcts? No (as we have no pre-existing objects)
 8. Clean Up: Empty/Delete Destination Bucket > Empty/Delete Source Bucket > IAM: locate role staring with "s3crr_role[...]"
 
@@ -1458,10 +1458,10 @@ Create 2 S3 buckets - one in N. Virginia, the other in N. California and configu
 Presigned URL's are a feature of S3 which allows the system to generate a URL with access permissions encoded into it, for a specific bucket and object, valid for a certain time period
 - PreSigned URLs can be used for downloads (GET) or Uploads (PUT)
 
-Eg. S3 bucket with NO public access configured. Currently, a user would have to authenticate in IAM and be authorized to access resource. If you need to give an unauthenticated user access to the bucket, there are 3 [un-ideal] solutions 1) give mystery user AWS ID 2) give myst.user credentials 3) make object public. 
+Eg. S3 bucket with NO public access configured. Currently, a user would have to authenticate in IAM and be authorized to access resource. If you need to give an unauthenticated user access to the bucket, there are 3 [un-ideal] solutions 1) give mystery user AWS ID 2) give myst.user credentials 3) make object public.
 - Better solution than all this is PreSigned URLs
 
-NOTE: The PreSigned URL is used, the holder of the URL is interacting with S3 as the person who GENERATED the URL. In the example above, the mystery user would be iamadmin 
+NOTE: The PreSigned URL is used, the holder of the URL is interacting with S3 as the person who GENERATED the URL. In the example above, the mystery user would be iamadmin
 
 EXAM: You can create a URL for an object that you have NO ACCESS TO. But, since you have no access, the PreSigned URL won't either. Not an applicable use case, but possible
 EXAM: When using a PreSigned URL, the permissions are the same as the CURRENT permissions of Identity that generated the PreSigned URL. (So Access Denied could mean the generating ID never had access, or doesn't now)
@@ -1470,23 +1470,23 @@ EXAM: Don't generate PreSigned URLs using an IAM Role (temp credentials of a Rol
 
  ## DEMO S3 Creating and using PreSigned URLs
  Create a bucket, upload an object and generate a presignedURL allowing access for any unauthenticated identities.
- 
- 1. Create bucket > name "animals4lifemedia[randomnumber]" > Create bucket 
+
+ 1. Create bucket > name "animals4lifemedia[randomnumber]" > Create bucket
  2. Upload object > all5.jpv to new bucket
  3. Generate PreSigned ULR > Cloud Shell (terminal icon top right of AWS) > shell command "aws s3 presign s3://animals4lifemedia745675/all5.jpg --expires-in 180"
  - 180 is in seconds, 3 mins
  4. Clean up: Empty/delete bucket
- 
+
  NOTE: Interesting Aspects...
  1. Try "aws s3 presign s3://animals4lifemedia745675/all5.jpg --expires-in 604,800"
  2. Nav to IAM > Users > iamadmin > Permissions: Add inline policy, copy JSON from lesson > save
  3. In CloudShell, try "aws s3 ls", you'll see Access Denied. This Explicit Deny overrules S3 permissions. Refresh PreSigned URL and see that access is now denied as the current permissions of iamadmin are restricted from S3
- 4. iamadmin currently restricted from S3, but can still generated a PreSigned URL for it, even with no access. 
+ 4. iamadmin currently restricted from S3, but can still generated a PreSigned URL for it, even with no access.
  - You can also generate a PreSigned URL on a non-existent object
  - If you generate a PreSigned URL with an assumed Role, the URL will stop working with the temporary creds for the Role stop working
  - Can now create PreSigned URL from AWS Dashbord s3 > bucket > object > Object Actions dropdown "Share with a presigned URL"
- 
- 
+
+
 ## S3 Select and Glacier Select
 EXAM: Understand this architecture
 S3 and Glacier Select allow you to use a SQL-Like statements to retrieve partial objects from S3 and Glacier.
@@ -1499,10 +1499,10 @@ S3 and Glacier Select allow you to use a SQL-Like statements to retrieve partial
 The Amazon S3 notification feature enables you to receive notifications when certain events happen in your bucket. To enable notifications, you must first add a notification configuration that identifies the events you want Amazon S3 to publish and the destinations where you want Amazon S3 to send the notifications. You store this configuration in the notification subresource that is associated with a bucket
 - Notifications generated when events occur in a bucket
 - Can be delivered to SNS Topics, SQS Queues and Lambda Functions
-- Types of events: object Created (Put, Post, Copy, CompleteMultiPartUpload), object Delete (*, Delete, DeleteMarkerCreated), object Restore (Post (Initiated), Completed), Replication 
-- Events are generated by S3 Service, known as S3 Principal, so we also need to add Resource Policies to the destination services to allow S3 svc to interact 
+- Types of events: object Created (Put, Post, Copy, CompleteMultiPartUpload), object Delete (*, Delete, DeleteMarkerCreated), object Restore (Post (Initiated), Completed), Replication
+- Events are generated by S3 Service, known as S3 Principal, so we also need to add Resource Policies to the destination services to allow S3 svc to interact
 - Events are JSON objects
-- S3 Event notifications are dated and limited features. Can also use EventBridge which supports more events and wider svc integration. 
+- S3 Event notifications are dated and limited features. Can also use EventBridge which supports more events and wider svc integration.
 DEFAULT: use EventBridge as Default for S3 event notifications
 
 
@@ -1531,7 +1531,7 @@ Object Lock handles retention in TWO ways:
 ### S3 Object Lock - Retention Period Methods - Retention Periods and Legal Holds
 #### Retention Period: When you create lock, you specify retention period for DAYS / YEARS
 Two Modes of Retention Period (EXAM):
-- 1. Compliance Mode. Object version Can't be adjusted, deleted, overwritten for duration of period. Retention period duration can't be reduced. Retention Mode cannot be adjusted during period (EXAM: not even by Account Root User). This is the most strict Object Lock: Retention Period w/ Compliance Mode. 
+- 1. Compliance Mode. Object version Can't be adjusted, deleted, overwritten for duration of period. Retention period duration can't be reduced. Retention Mode cannot be adjusted during period (EXAM: not even by Account Root User). This is the most strict Object Lock: Retention Period w/ Compliance Mode.
 - 2. Governance Mode. Set a retention period, but special permissions can be granted allowing Lock Settings to be adjusted during the retention period
 -- EXAM: s3:BypassGovernanceRetention in order to allow settings adjustment, along with header along with request "x-amz-bypass-governance-retention:true" (console ui default)
 
@@ -1554,7 +1554,7 @@ Amazon S3 Access Points, a feature of S3, simplifies managing data access at sca
 - Access Point Policies control permissions for access via Access Point and are functionally equivalent to a Bucket Policy. Access Point Policy can restruct identities to certain prefixes, tags, or actions based on need
 - IMPORTANT: Any permissions defined on an Access Point need to also be defined on the Bucket Policy
 
-### S3 Access Points Resource: 
+### S3 Access Points Resource:
 https://docs.aws.amazon.com/AmazonS3/latest/dev/creating-access-points.html#access-points-policies
 
 
@@ -1572,13 +1572,12 @@ Amazon Simple Storage Service (S3) Multi-Region Access Points provide a global e
 5. See remaining steps in the demo file in this repo
 6. Clean up: s3 MRAP > select MRAP, delete > s3 buckets Empty and Delete
 
-
 # VIRTUAL PRIVATE CLOUD (VPC) BASICS
 
 ## VPC Sizing and Structure
-Step through the design choices around VPC design and IP planning. How to design an IP plan for a business; designing a VPC 
+Step through the design choices around VPC design and IP planning. How to design an IP plan for a business; designing a VPC
 
-One of the first things to decide on is IP range; the VPC CIDR. 
+One of the first things to decide on is IP range; the VPC CIDR.
 - IMPORTANT: This planning is critical and is not easy to change later
 - What size should VPC be? How many services need to fit, each service has an IP, each occupies space in VPC
 - Are there any Networks we can't use, or need to interact with?
@@ -1600,16 +1599,16 @@ One of the first things to decide on is IP range; the VPC CIDR.
 --- 192.168.20.0/24 (NY) -> 192.168.20.255
 --- 192.168.25.0/24 (Seattle) -> 192.168.15.255
 --- 10.128.0.0/9 (google) -> 10.255.255.255
-^ When designing an IP addressing plan, don't use any of the above 
+^ When designing an IP addressing plan, don't use any of the above
 
 ### What IP ranges? How many networks does A4L need?
 - VPC min /26 (16 IPs). max /16 (65536 IPs)
 - Avoid common ranges to avoid future issues. 10.1 and 10.0 are common, avoid up to 10.10. Start at 10.16 per Cantrill's recommendation
-- How many ranges a business requires? First, how many regions does AWS operate in? Since we're pre-allocating, overestimate for a buffer. A4L we don't really know how many regions they'll operate in, but we can make educated guess then add buffer. 
+- How many ranges a business requires? First, how many regions does AWS operate in? Since we're pre-allocating, overestimate for a buffer. A4L we don't really know how many regions they'll operate in, but we can make educated guess then add buffer.
 -- Suggest having at least 2 ranges in each regoin, in each AWS account
 -- Assumed regions for A4L: 3 US, Europe, Australia (5) x2, and 4 AWS accounts. 3US + 1AU + 1EU = 5 Regions, 2 ranges ea. region, total of 10 IP ranges per account. Since there are 4 accounts, 10 ranges x 4 accounts = 40 IP ranges
 
-#### IP Range Review: 
+#### IP Range Review:
 - We're going avoid 10.0 - 10.10 (too commonly used)
 - Start at 10.16 per Cantrill
 - Can't use 10.128 -> 10.255 because Google Cloud uses it
@@ -1626,7 +1625,7 @@ VPC Sizing Chart: https://imgur.com/a/cJhXTxx
 - VPC Services run from within subnets
 - A subnet is located in ONE availability zone
 
-##### How many Availability Zones will your VPC use? 
+##### How many Availability Zones will your VPC use?
 - Start with 3 as DEFAULT, per Cantrill. And add at least 1 spare. DEFAULT: AT MINIMUM, always assume 4 AZ's
 - Within VPCs, you also have tiers. Tiers for different types of infrastructure inside VPC; web tier, application tier, database tier... so 3, plus buffer. DEFAULT: assume 4 tiers.
 -- 4 tiers, 4 AZ's. Each tier has a subnet in each AZ: 4x4 = 16 subnets. Using /16 VPC into 16 subnets, results in 1 smaller network ranges, each being /20. If we did /18 VPC prefix, each subnet would be /22
@@ -1652,15 +1651,15 @@ https://github.com/acantril/aws-sa-associate-saac02/tree/master/07-VPC-Basics/01
 ## Custom VPCs, includes DEMO
  Step through the architecture and features of Custom VPCs including the main issues which are raised in the exam
  - Learn to build a complex, mult-tier VPC
- 
+
  In this multi-tier custom VPC build...
  - Using VPC us-east-1, 10.16.0.0/16
  - Inside VPC, 4 tiers in 4 AZs = 16 subnets.
  - We will create all 4 tiers: reserve, DB, app, web
  - We will only create 3 AZ's: A, B, C. We will not create subnets in the capacity reserved for the future AZ
  - We will be creating VPC, subnets, an internet gateway, NAT gateways, bastion host (using bastion host is bad practice - don't do it, not secure), NACLs
- 
- 
+
+
  ## DEMO - Custom VPCs - Create VPC - Overview
  - VPCs are regionally isolated and regionally resilient service. Operates from all AZs in that region.
  - Nothing is allowed IN or OUT of a VPC without explicit permission; provides isolated blast radius; if you have a proble inside a VPC, the impact is limited to that VPC and/or anything connected
@@ -1674,24 +1673,24 @@ https://github.com/acantril/aws-sa-associate-saac02/tree/master/07-VPC-Basics/01
  -- Primary Block has two main restrictions: min /28 (16 IPs), max /16 (65,536 IPs)
  -- Optional to add secondary IPv4
  - Optional: VPC can use IPv6 by assigning /56 IPv6 CIDR to VPC (start appliny IPv6 as default as this is what's being adopted now)
- -- IMPORTANT: You can't pick a block of IP ranges like IPv4. Your range is either allocated by AWS, or customer can use their OWN IPv6 range 
+ -- IMPORTANT: You can't pick a block of IP ranges like IPv4. Your range is either allocated by AWS, or customer can use their OWN IPv6 range
  -- IPv6 doesn't have Public/Private concept, the range is all Publicly routable by default
 
  ### DEMO - Custom VPCs - Create VPC - DNS
  VPCs also have DNS. provided by R53
  - DNS is 'Base IP + 2', so if VPC is 10.0.0.0, then DNS IP is 10.0.0.2
- EXAM: 
+ EXAM:
  - Two critical options for how DNS functions in a VPC
  -- 1. First is a setting called enableDnsHostnames - Gives instances public DNS names
  -- 2. enableDnsSupport setting. Enables DNS resolution in VPC. Indicates whether DNS is enabled or disabled in VPC. If enabled, instances in VPC can use the DNS IP address
- 
+
  ## DEMO pt.1 - Custom VPCs - Create/Configure VPC
  Steps through the architecture and features of Custom VPCs including the main issues which are raised in the exam
- 
+
  ### STEPS pt.1
  1. Create the VPC: VPC > Your VPCs > Create VPC > select VPC Only > name tag "a4l-vpc1" > IPv4 CIDR "10.16.0.0/16" > IPv6 CIDR block "Amazon-provided IPv6 CIDR block", default us-east-1 > Tenancy set to Default > Create VPC
  2. VPC Settings: In VPC > Actions dropdown, "Edit VPC Settings" > DNS Settings check both Enable DNS Resolution and Enable DNS Hostnames < Save (for any resources in this custom VPC, if they have puclic IP addresses, they'll also get public DNS names)
- 
+
  ## DEMO pt.2 - Custom VPCs - VPC Subnets
  Subnets are what services run from inside VPCs, within a particular Availability Zone. They're how you add function, structure, and resilience to VPCs
  NOTE: With AWS diagrams, color Blue is private and Green is for Public (green = Go = Public)
@@ -1718,23 +1717,23 @@ https://github.com/acantril/aws-sa-associate-saac02/tree/master/07-VPC-Basics/01
  ### STEPS pt.2 - Creating lots of subnets
  3. Create Multiple Subnets with VPC multi-tier structure: VPC > Subnets > Create subnet > Select VPC (a4l-vpc1) > subnet name "sn-reserved-A" > IPv4 CIDR block "10.16.0.0/20" > IPv6 CIDR block, choose the one option, fill in unique IPv6 value for the respective subnet (00 for first one) > Add New Subnet > Repeat for each subnet in the AZ (4 total) > Verify Details in each > Create Subnet. Repeat for AZB, AZC.
  4. Auto allocate IPv6 Addressing: select sn-app-A > Actions drop down, "Edit Subnet Settings" > Auto-assign IP settings, check "Enable auto-assign IPv6 address" > Save > Do this for all new subnets
- 
+
  ### Custom VPCs - Resources
  - VPC Limits https://docs.aws.amazon.com/vpc/latest/userguide/amazon-vpc-limits.html
  - Architecture https://raw.githubusercontent.com/acantril/aws-sa-associate-saac03/main/0800-VIRTUAL_PRIVATE_CLOUD(VPC)/00_LEARNINGAIDS/VPCStucture-1.png
  - CIDR review: https://aws.amazon.com/what-is/cidr/
  - Subnet Calculator : https://www.site24x7.com/tools/ipv4-subnetcalculator.html
- 
- 
+
+
  ## VPC Routing, Internet Gateway, & Bastion Hosts
 Step through the architecture and functionality of Route Tables, Routes, Associations, the internet gateway and public IP v4 functionality within a VPC
 
-### VPC Routing 
+### VPC Routing
 #### VPC Router
 - VPC Router routes traffic between subnets. In every subnet, router has IP of network+1 address
 - Every VPC has a VPC Router - Highly Available
 - Controlled by Route Tables which influence what to do with traffic. Each subnet has one
-- VPC created with what's known as a Main Route Table - subnet default (if you don't explicity associate a route table with a subnet, it gets the Main Route Table of the VPC). 
+- VPC created with what's known as a Main Route Table - subnet default (if you don't explicity associate a route table with a subnet, it gets the Main Route Table of the VPC).
 -- A subnet can only have ONE route table associated with it at any one time. But a Route Table can be associated with many subnets
 -- If multiple routes match, the prefix is used as a priority. The higher the prefix value, the more specific the route, the more priority a route has. HOWEVER, Local Routes ALWAYS have priority.
 -- All VPC's have at least one route: the local route. This matches the VPC CIDR Range
@@ -1744,7 +1743,7 @@ EXAM: Route tables are attached to 0 or more Subnets. A Subnet HAS to have a Rou
 ### Internet Gateway
 IGW is for data to exit-to and enter-from the Public Internet. A REGIONAL RESILIENT gateway attached to a VPC
 
-EXAM: Internet Gateway (IGW) is a REGION RESILIENT gateway attached to a VPC. A VPC can have no IGW's or ONLY 1 IGW. An IGW can be created and not attached to a 
+EXAM: Internet Gateway (IGW) is a REGION RESILIENT gateway attached to a VPC. A VPC can have no IGW's or ONLY 1 IGW. An IGW can be created and not attached to a
 VPC (but again, it can only EVER be attached to ONE VPC at a time)
 
 - IGW runs within the AWS Public Zone. IGW runs from the border of the Public Zone and VPC
@@ -1805,11 +1804,11 @@ TCP and IP Review: They work together.
 EXAM: Every CONNECTION between user/server has two parts: 1. REQUEST (initiation) 2. RESPONSE.
 
 What actually happens:
-Client pick temporary "ephemeral" port 2. client initiates server connection REQUEST using well-known port number (like Port 443 HTTPS) 3. Server RESPONDS using source port of tcp/443 and ephemeral port picked by client 4. 
-- Directionality depends on your perspective. What is INBOUND/OUTBOUND -- Source/Dest swap depending on who's perspective. 
+Client pick temporary "ephemeral" port 2. client initiates server connection REQUEST using well-known port number (like Port 443 HTTPS) 3. Server RESPONDS using source port of tcp/443 and ephemeral port picked by client 4.
+- Directionality depends on your perspective. What is INBOUND/OUTBOUND -- Source/Dest swap depending on who's perspective.
 
 ### Stateless Firewalls
-Ex. Server is within a stateless firewall; meaning that it doesn't understand the state of connections (it sees REQUEST/RESPONSE as separate parts, so you need 2 rules needed for each connection). 
+Ex. Server is within a stateless firewall; meaning that it doesn't understand the state of connections (it sees REQUEST/RESPONSE as separate parts, so you need 2 rules needed for each connection).
 - TWO Rules needed for each connection, 1 IN 1 OUT
 - Because firewall is stateless, it doesn't know which specific port is used for the response. You'll often have to allow the FULL RANGE of ephemeral ports to any destination
 -- This makes security engineers uneasy, which is why Stateful Firewalls are preferred.
@@ -1821,7 +1820,7 @@ A Stateful Firewall is intelligent enough to ID the REQUEST and RESPONSE compone
 
 
 ## Network Access Control Lists (NACLs)
-A network access control list (ACL) is an optional layer of security for your VPC that acts as a firewall for controlling traffic in and out of one or more subnets. You might set up network ACLs with rules similar to your security groups in order to add an additional layer of security to your VPC. 
+A network access control list (ACL) is an optional layer of security for your VPC that acts as a firewall for controlling traffic in and out of one or more subnets. You might set up network ACLs with rules similar to your security groups in order to add an additional layer of security to your VPC.
 - NACL only impacts data crossing the subnet boundary
 - NACLs are STATELESS
 - Can EXPLICITLY ALLOW AND EXPLICITLY DENY; you can block specific IPs/IP Ranges associated with bad actors
@@ -1875,10 +1874,10 @@ NOTE: A logical resource is an abstraction that doesn't cost you anything.  It's
 What is NAT? A process of giving a private resource outgoing-only access to the internet. Set of processes which adjusts IP packets by changing their source or destination IP addresses from the private IPs to the Public NAT Gateway IP
 - IGW performs a "Static NAT"; how a resource can be allocated with a public IPv4 address
 - IP Masquerading. A subset of NAT that hides private CIDR Blocks behind ONE IP
-- NAT is many private IPs to one single IP, this is popular as IPv4 addresses are running out. 
+- NAT is many private IPs to one single IP, this is popular as IPv4 addresses are running out.
 - Gives Private CIDR ranges OUTGOING internet access or AWS public services
 - NAT is not required for IPv6, only IPv4. All IPv6 addresses are PUBLICLY ROUTABLE
-- Need bi-directional connectivity on an instance? use IPv6 default route and point to IGW as target: ::/0 Route+IGW 
+- Need bi-directional connectivity on an instance? use IPv6 default route and point to IGW as target: ::/0 Route+IGW
 - Outgoing ONLY access for an IPv6 instance? You need ::/0 Route + "Egress-Only IGW"
 
 AWS can provide NAT services in TWO ways:
@@ -1892,7 +1891,7 @@ NAT Gateway is provisioned into a PUBLIC subnet (like WEB subnet, in our example
 - Elastic IPs - NAT Gateways use Elastic IPs. These are IPv4 addresses that are static and don't change. NATGW is the only AWS service that uses Elastic IPs
 - NATGW's are an AZ resilient service. To attain Region Resilience, you need a NATGW in EACH AZ, and have a Route Table in each AZ with that NATGW as the target. So, for every AZ you use, you need one NAT Gateway and one Route Table pointing at said NATGW
 
-EXAM: NATGW's are a managed service. Scales to 45 Gbps. 
+EXAM: NATGW's are a managed service. Scales to 45 Gbps.
 EXAM: NATGW's Billing: Hourly charge for running it (like 4 cents per hour, and partial hours are billed as full hours), data processing charge (per GB of processed data)
 EXAM: FALSE - Exam may suggest 1 NATGW is sufficient, that 1 is regionally resilient. FALSE. If you want regional resilience, you have to deploy NATGW into each AZ you use.
 EXAM: If you want to allow an EC2 instance to function as a NAT instance, Disable SOURCE/DESTINATION CHECKS
@@ -1919,7 +1918,7 @@ Implement a highly-available regionally resilient NAT Gateway solution within th
 NOTE: Session Mgr allows connection to an EC2 instance that has no public internet connectivity
 3. Connect to Internet with NATGW: VPC > NATGQ, Create NATGW > name "a4l-vpc1-natgw-A", subnet sn-web-A, Elastic IP: click 'Allocate' > Create NATGW > Repeat for B, C
 4. Configure Routing, Route Table: VPC > Route Tables > Create route table > select VPC a4l-vpc1, name "a4l-vpc1-rt-privateA" > Create > repeat for B,C
-5. Create Default route in each RT: select RT "privateA" > Routes tab > Edit routes > Add route > DST 0.0.0.0/0, target NATGW A > Save Changes > Repeat for B, C 
+5. Create Default route in each RT: select RT "privateA" > Routes tab > Edit routes > Add route > DST 0.0.0.0/0, target NATGW A > Save Changes > Repeat for B, C
 6. Associate Route Table with subnets: VPC Route Tables, select web-A, Edit subnet associations > select private subnets (app, db, reserved) > Save associations > Repeat for B, C
 7. Cleanup: Edit subnet associations > uncheck all > save (x3) > Delete RTs > NATGWs: actions: delete (x3) > Elastic IPs: Release (x3) > CFN: Delete A4L stack
 
@@ -1927,7 +1926,7 @@ NOTE: Session Mgr allows connection to an EC2 instance that has no public intern
 
 # EC2 Basics
 
-## Virtualization 
+## Virtualization
 Emulated Virtualization
 Paravirtualization
 Hardware Assisted Virtualization
@@ -1941,12 +1940,12 @@ EC2 provides virtualization as a service (IaaS). It is dealing with the process 
 -- PARA-VIRTUALIZATION. O/S's running in virtual machines, but instead of Binary Translation, they modify the guest O/S's to make Hypercalls. This requires O/S modification
 
 ### Hardware Assisted Virtualization
-The major improvement to virtualization as it made the physical hardware became virtualization aware. When guest O/S's attempt priveleged instructions, they're trapped by CPU (which expects this) so the system does not halt. 
+The major improvement to virtualization as it made the physical hardware became virtualization aware. When guest O/S's attempt priveleged instructions, they're trapped by CPU (which expects this) so the system does not halt.
 
 ### SR-IOV
 Single-root IO Virtualization. Allows a network card to present itself as several "mini cards". Splits a physical card into several logical cards to present to guest O/S's
 
-SR-IOV is a method of device virtualization that provides higher I/O performance and lower CPU utilization when compared to traditional virtualized network interfaces. Enhanced networking provides higher bandwidth, higher packet per second (PPS) performance, and consistently lower inter-instance latencies. There is no additional charge for using enhanced networking. SR-IOV enables network traffic to bypass the software switch layer of the Hyper-V virtualization stack. 
+SR-IOV is a method of device virtualization that provides higher I/O performance and lower CPU utilization when compared to traditional virtualized network interfaces. Enhanced networking provides higher bandwidth, higher packet per second (PPS) performance, and consistently lower inter-instance latencies. There is no additional charge for using enhanced networking. SR-IOV enables network traffic to bypass the software switch layer of the Hyper-V virtualization stack.
 
 ### Virtualization Resources
 http://www.brendangregg.com/blog/2017-11-29/aws-ec2-virtualization-2017.html
@@ -1954,16 +1953,16 @@ http://www.brendangregg.com/blog/2017-11-29/aws-ec2-virtualization-2017.html
 
 ## EC2 Architecture and Resilience
 Looking specifically at EC2 Hosts, how they are physically architected, why they are AZ resilient, and how the resilience of the Elastic Block Store (EBS) factors into our decisions as Solutions Architects.
-- EC2 instances are Virtual Machines (VMs = O/S + Resources) 
+- EC2 instances are Virtual Machines (VMs = O/S + Resources)
 - EC2 instances run on EC2 Hosts, they're either SHARED (across different AWS customers, Shared is Default) or DEDICATED hosts
 - EC2 is AZ resilient service. If AZ fails, Host Fails, Instances Fail
 
 ### EC2 Hosts
-EC2 hosts have some local hardware--CPU and memory, but also local storage called Instance Store. 
+EC2 hosts have some local hardware--CPU and memory, but also local storage called Instance Store.
 - They have two types of networking:
 1. Storage Networking
 2. Data Networking
-When instances are provisioned into a specfic subnet within a VPC, a primary Elastic Network Interface is provisioned in a subnet which maps to the physical hardware on the EC2 host. 
+When instances are provisioned into a specfic subnet within a VPC, a primary Elastic Network Interface is provisioned in a subnet which maps to the physical hardware on the EC2 host.
 - EC2 Host can connect to the Elastic Block Store (EBS). EBS also AZ Resilient. EBS let's you allocate volumes of portions of persistent storage, and these are allocated to instances in the same AZ.
 - EBS = Network based storage
 - An Instance runs on a specific host and if you restart the instance, it will stay on that host. An instance will stay on a host unless one of 2 things happens:
@@ -2000,7 +1999,7 @@ Choosing a different instance type influences a few things...
 
 ### EC2 Instances - Grouped into 5 Main Categories:
 1 - General Purpose (Default): Diverse workloads, equal resource ratios
-2 - Compute Optimized: Designed for media processing, high performance computing, modeling, gaming, ML; access to the latest high performance CPUs. Resource Ratio where more CPU is offered the memory 
+2 - Compute Optimized: Designed for media processing, high performance computing, modeling, gaming, ML; access to the latest high performance CPUs. Resource Ratio where more CPU is offered the memory
 3 - Memory Optimized: Inverse of Compute Optimized. Processing large in-memory datasets (Ex. in-memory caching), some database workloads
 4 - Accelerated Computing: Dedicated GPUs for high scale parallel processing and modeling, custom programmable hardware known as field programmable gate arrays (FGPAs). Accelerated Computing category is often for niche requirements; you'll know when you need this category
 5 - Storage Optimized: Large amounts of super fast, local storage. Massive amounts of IO operations/second, scale out transactional databases, data warehousing, Elasticsearch, analytics workloads. The Storage Optimized category is great for applications that have serious demands on sequential and random IO.
@@ -2035,7 +2034,7 @@ Amazon EC2 Instance Connect provides a simple and secure way to connect to your 
 3. Connect to Instance via SSH: EC2 > Instances > A4L, Connect, SSH Client > Open your Terminal > cd to directory with Key Pair .pem file > Paste command, Enter, 'Yes' for fingerprint
 4. Connect with EC2 Instance Connect:  EC2 > Instances > A4L, Connect, EC2 Instance Connect
 - NOTE: EC2 Instance Connect is not originating connections through your machine (not your IP)
-5. Clean up > CFN > Delete Stack 
+5. Clean up > CFN > Delete Stack
 
 
 ## Storage Refresher
@@ -2051,11 +2050,11 @@ EXAM: An example of Persistent Storage in AWS is the networked attached storage 
 - FILE storage: Presented as a file share/file server WITH STRUCTURE. Mountable. NOT bootable.
 - OBJECT Storage: Collection of objects. NO STRUCTURE; flat. NOT mountable. NOT bootable.
 
-### Storage Performance 
-These items don't exist in isolation. IOPS is like speed of engine a racecar runs at (revolutions per second), IO block size is like the size of the car's wheels, throughput is the top-speed of the racecar. 
-- IO BLOCK SIZE: Size of the data you're writing to disk. 
+### Storage Performance
+These items don't exist in isolation. IOPS is like speed of engine a racecar runs at (revolutions per second), IO block size is like the size of the car's wheels, throughput is the top-speed of the racecar.
+- IO BLOCK SIZE: Size of the data you're writing to disk.
 - IOPS: Measures the number of I/O operations a storage system supports in a second (how many read/writes in a second)
-- THROUGHPUT: Amount of data that can be transferred in a given second, MB/s. 
+- THROUGHPUT: Amount of data that can be transferred in a given second, MB/s.
 * IO x IOPS = Throughput
 ** Ex. 16KB IO block size x 100IOPS = 1.6MB/s throughput
 
@@ -2066,7 +2065,7 @@ Amazon Elastic Block Store (Amazon EBS) provides block level storage volumes for
 - When you attach a volume to an EC2 instance, the instance sees a Block Device, so raw storage.
 - EBS volumes appear just like any other storage device to an EC2 instance
 - EBS Volumes are attached to ONE instance at a time. However, can be detached and re-attached to a new instance. They are not lifecycle linked to one instance, they're persistent; if an instance moves to a new EC2 host, the volume follows it. EBS is persistent until you delete the volume (separate from the instance)
-- Snapshot into S3: You can create a backup of a volume with a Snapshot into S3. This can be used to migrate volumes between AZs. 
+- Snapshot into S3: You can create a backup of a volume with a Snapshot into S3. This can be used to migrate volumes between AZs.
 - EBS can provision volumes based on different physical storage types: SSD, high-performance SSD, volumes based on mechanical disks, different size volumes, different performance profiles
 - BILLING: Gigabyte/Month metric (and in some cases, performance)
 
@@ -2080,7 +2079,7 @@ EBS is AZ-based. So, with two AZs you have two separate EBSs. Same as EC2 hosts-
 - For Global Resilience on volumes, copy snapshots over to different regions
 
 
-## EC2 - EBS Volume Types 
+## EC2 - EBS Volume Types
 General Purpose SSD — Provides a balance of price and performance. We recommend these volumes for most workloads.
 - Volumes can very in size from 1GB -> 16TB
 - When created, a volume is given an I/O credit allocation
@@ -2093,13 +2092,13 @@ General Purpose SSD — Provides a balance of price and performance. We recommen
 - Great for: boot volumes, low latency interactive apps, dev/test environments
 - GP2 auto scales on size
 
-2. GP3. SSD based, but removed the credit architecture GP2 
+2. GP3. SSD based, but removed the credit architecture GP2
 - Every GP3 volume, regardless of size starts with 3,000 IOPS and 125MiB/s
 - ~20% cheaper than GP2
 - Need more performance? Can pay for up 1o 16,000 IOPS or 1,000 MiB/s
 - GP3 does NOT auto-scale, you have to enable the upgrades
 
-#### IO Credit. When you create a volume (size ranging from 1GB -> 16TB), it is created with an IO credit allocation. 
+#### IO Credit. When you create a volume (size ranging from 1GB -> 16TB), it is created with an IO credit allocation.
 - An IO is one input/output operation
 - IO credit is a 16KB chuck of data
 - An IOP is one chuck of 16KB in one second
@@ -2122,7 +2121,7 @@ Provisioned IOPS SSD — Provides high performance for mission-critical, low-lat
 - Per Instance Performance restriction: the max performance between the EBS svc and an EC2 instance
 - NUMBERS (all the specs for Provisioned IOPS): https://imgur.com/a/zYQk7G1
 
-EXAM: Provisioned IOPS: Most consistent low latency and jitter. 
+EXAM: Provisioned IOPS: Most consistent low latency and jitter.
 EXAM: Prov.IOPS for sub-millisecond latency, consistent latency, and higher performance.
 
 
@@ -2131,7 +2130,7 @@ EXAM: Prov.IOPS for sub-millisecond latency, consistent latency, and higher perf
 Types:
 1. Throughput Optimized HDD (st1) — A low-cost HDD designed for frequently accessed, throughput-intensive workloads. For sequentially accessed data like streaming
 -- Big data, data warehouses, log processing
-2. Cold HDD (sc1) — The lowest-cost HDD design for less frequently accessed workloads. 
+2. Cold HDD (sc1) — The lowest-cost HDD design for less frequently accessed workloads.
 -- geared for max economy (lowest EBS cost option) with lowest performance
 
 HDD Based EBS Volume Type METRICS: https://imgur.com/a/EcGVrx8
@@ -2205,7 +2204,7 @@ Commands for Terminal: https://learn-cantrill-labs.s3.amazonaws.com/awscoursedem
 2. Mount it to an EC2 instance: Select new EBS Volume > Actions: Attach Volume > Choose Instance1 > Attach
 3. Create and Mount a file system: Ec2 Instance > select A4L-EBS-INSTANCE1-AZB, Connect > EC2 Instance Connect > `sudo mkfs -t xfs /dev/xvdf`, Enter
 4. Generate a test file: EC2 Connect > `sudo mkdir /ebstest`, Enter > Mount dev/xvdf to /ebstest directory `sudo mount /dev/xvdf /ebstest` > cd /esbstest > `sudo nano amazingtestfile.txt` > write text, ctrol+o, enter, ctrl+x > Reboot instance `sudo reboot`
-5. Migrate volume with Snapshot: EC2 > Instances > Stop AZA Instance 1 and 2 > when stopped, Volumes: Detach Volume > right click EBS Volume, Create Snapshot > Right click Snapshot, Create Volume from Snapshot > Zone us-east-1b > Tag key "Name" value "EBSTestVolume-AZB" > Create 
+5. Migrate volume with Snapshot: EC2 > Instances > Stop AZA Instance 1 and 2 > when stopped, Volumes: Detach Volume > right click EBS Volume, Create Snapshot > Right click Snapshot, Create Volume from Snapshot > Zone us-east-1b > Tag key "Name" value "EBSTestVolume-AZB" > Create
 6. Attach Volume to AZB instance: Volume > right click, Attach > ABZ Instance 1 > ATtach
 7. Verify the filesystem and file are intact > EC2 Instance Connet on AZB Instance 1 > `lsblk` > `sudo mkdir /ebstest` > `sudo mount /dev/xvdf /ebstest`
 8. Stop AZB Instance > Detach EBS Volume
@@ -2248,41 +2247,41 @@ EXAM: IPv4 Public IPs are DYNAMIC... Stop/Start instance means IP de-allocation/
 EXAM: Public DNS given to the instance for the public IPv4 IP address resolves to the PRIMARY PRIVATE IPv4 address from within the VPC. This happens so that if you've got instance-to-instance communication, it never leaves the VPC. Outside the VPC, DNS will resolve to the PUBLIC address
 
 
-## DEMO - EC2 -  Manual Install of Wordpress on EC2 - NOTE-INCOMPLETE DEMO, IT BROKE 
+## DEMO - EC2 -  Manual Install of Wordpress on EC2 - NOTE-INCOMPLETE DEMO, IT BROKE
 Use EC2, install MariaDB, Apache & libraries and then download and install wordpress.
 - Learning how NOT to do things through a manual installation
 
 Steps:
 1. 1-Click Deployment in lesson > Wait for stack to hit CREATE COMPLETE
 2. Install WP: EC2 > Instances Running > right-click A4L, Connect, Instance Connect
-3. Create Variables in Console > 
+3. Create Variables in Console >
 DBName='a4lwordpress'
 DBUser='a4lwordpress'
 DBPassword='4n1m4l$4L1f3'
 DBRootPassword='4n1m4l$4L1f3'
 > Paste each, press Enter, paste the next, Enter
 4. Install system software - including Web and DB: `sudo yum install -y mariadb-server httpd wget` > install PHP/MariaDB `sudo amazon-linux-extras install -y lamp-mariadb10.2-php7.2 php7.2`
-5. Web and DB Servers Online - and set to startup: 
+5. Web and DB Servers Online - and set to startup:
 sudo systemctl enable httpd >
 sudo systemctl enable mariadb >
 sudo systemctl start httpd >
 sudo systemctl start mariadb
 6. Set Mariadb Root Password: `mysqladmin -u root password $DBRootPassword`
 7. Install Wordpress: `sudo wget http://wordpress.org/latest.tar.gz -P /var/www/html` > `cd /var/www/html` > `sudo tar -zxvf latest.tar.gz` (to extract tar file) > `sudo cp -rvf wordpress/* .` (copy data from WP file to current file '.') > `sudo rm -R wordpress` > `sudo rm latest.tar.gz`
-8. Configure Wordpress: 
-sudo cp ./wp-config-sample.php ./wp-config.php (rename template config file to be actual) > 
-sudo sed -i "s/'database_name_here'/'$DBName'/g" wp-config.php (search and replace to update config file > 
+8. Configure Wordpress:
+sudo cp ./wp-config-sample.php ./wp-config.php (rename template config file to be actual) >
+sudo sed -i "s/'database_name_here'/'$DBName'/g" wp-config.php (search and replace to update config file >
 sudo sed -i "s/'username_here'/'$DBUser'/g" wp-config.php >
 sudo sed -i "s/'password_here'/'$DBPassword'/g" wp-config.php >
 sudo chown apache:apache * -R (making sure web server has access to all file folders, owned by apache)
-9. Create Wordpress DB: 
+9. Create Wordpress DB:
 echo "CREATE DATABASE $DBName;" >> /tmp/db.setup (create WP DB) >
 echo "CREATE USER '$DBUser'@'localhost' IDENTIFIED BY '$DBPassword';" >> /tmp/db.setup >
 echo "GRANT ALL ON $DBName.* TO '$DBUser'@'localhost';" >> /tmp/db.setup >
 echo "FLUSH PRIVILEGES;" >> /tmp/db.setup >
 mysql -u root --password=$DBRootPassword < /tmp/db.setup
 sudo rm /tmp/db.setup
-*** UNSUCCESSFUL DEMO--Somewhere this messed up and the system couldn't see tmp/db.setup, then it could, so the commands got duplicated - 
+*** UNSUCCESSFUL DEMO--Somewhere this messed up and the system couldn't see tmp/db.setup, then it could, so the commands got duplicated -
 10. Clean up Account: CFN > delete stack
 
 
@@ -2295,9 +2294,9 @@ Amazon Machine Images (AMI) are the images which can create EC2 instances of a c
 - Not only can you create EC2 Instance from AMI, can create AMI from EC2 instance you want to template
 - BILLING: billed for the storage cost... the data of the EBS snapshots contained
 
-AMI Lifecycle: 
-1. Launch Instance: AMI launches EC2 instance. 
-2. Configure Instance: Can take launched instance and provide customizations (Eg. O/S, instance with config'd volumes, etc). 
+AMI Lifecycle:
+1. Launch Instance: AMI launches EC2 instance.
+2. Configure Instance: Can take launched instance and provide customizations (Eg. O/S, instance with config'd volumes, etc).
 3. Create New AMI: Can create an AMI from your configured/customized Instance (make a template)
 4. Launch NEW Template instance: Launch new instance with templace AMI
 
@@ -2311,9 +2310,9 @@ EXAM: Default AMI permissions: Default is your account only. (Can be private, pu
 ## DEMO - EC2 -  Creating A4L AMI (AMI Baking)
 Create WP EC2 instance. Improve EC2 login screen. Create AMI from custom instance and deploy a new instance.
 
-Steps: 
+Steps:
 1. Set up WP Instance: https://learn-cantrill-labs.s3.amazonaws.com/awscoursedemos/0007-aws-associate-ec2-ami-demo/lesson_commands.txt > Create Stack
-***UNSUCCESSFUL DEMO: Failed to complete. Cantrill says it works but I couldn't get it 
+***UNSUCCESSFUL DEMO: Failed to complete. Cantrill says it works but I couldn't get it
 
 
 ## EC2 Purchase Options (Launch Types)
@@ -2323,7 +2322,7 @@ ON-DEMAND: Default/Shared. Per second billing. Resources like consume capacity b
 SPOT: Spot pricing is AWS selling unused EC2 Host Capacity for up to 90% discount. Spot price based on the space capacity at a given time
 -- Customer sets max price they're willing to pay. If a Spot price exceeds your max willing payment, you'll lose the Spot
 -- NEVER use a Spot for workloads which can't tolerate interruptions
--- Best for things that are non-time critical. Anything which can tolerate interruption and just be rerun. Anything that has a bursty capacity need. 
+-- Best for things that are non-time critical. Anything which can tolerate interruption and just be rerun. Anything that has a bursty capacity need.
 
 RESERVED: Form a part of most larger deployments in AWS. For long-term, consistent usage of EC2. Purchase a reservation to remove/reduce the per second price.
 -- An unused reservation is still billed. Can be locked to AZ or region. Partial coverage of a larger instance, not billed for full thing.
@@ -2334,10 +2333,10 @@ DEDICATED INSTANCES: Instances run on an EC2 host that you don't own or share. E
 -- Fees: 1 off hourly fee for any regions using dedicated instances. Fee for the instances themselves
 -- For when you can't share infrastructure
 
-DEDICATED HOST: EC2 host allocated to you in its entirety. You need to manage capacity, however, and unused capacity is wasted. 
+DEDICATED HOST: EC2 host allocated to you in its entirety. You need to manage capacity, however, and unused capacity is wasted.
 -- 'Host Affinity' links instances to hosts
 -- For Strict Licensing requirements. Reason to use this purchase option: For socket and core licensing requirements
--- You pay for the HOST, no instance charges. 
+-- You pay for the HOST, no instance charges.
 
 EXAM: On demand, reserved, spot
 
@@ -2360,7 +2359,7 @@ Scheduled Reserved Instances, the differences between zonal and regional reserva
 ### On-Demand Capacity Reservations: Can be booked to ensure you always have access to capacity in an AZ when you need it, but at FULL ON-DEMAND price.
 - NO TERM LIMITS, but you pay whether or not you use it
 
-### Savings Plan: Kind of like a reserved instance purchase, but instead of particular type of instance, it's a 1 to 3 year commit to AWS in terms of hourly spend. Eg. Minimum spend 20$/hr for 1 or 3 years, you get a reduction in price. If you go above your savings plan ($20), you begin paying 
+### Savings Plan: Kind of like a reserved instance purchase, but instead of particular type of instance, it's a 1 to 3 year commit to AWS in terms of hourly spend. Eg. Minimum spend 20$/hr for 1 or 3 years, you get a reduction in price. If you go above your savings plan ($20), you begin paying
 - Can make a reservation of general compute amounts, 60% discount
 - EC2 savings plan, which must be used for EC2 but 72% discount
 - General Compute valid for things like EC2, fargate, lambda. These products have both on-demand rate and savings plan rate
@@ -2369,8 +2368,8 @@ Scheduled Reserved Instances, the differences between zonal and regional reserva
 ## EC2 - Instance Status Checks & Auto Recovery
 Amazon EC2 performs automated checks on every running EC2 instance to identify hardware and software issues. You can view the results of these status checks to identify specific and detectable problems.
 
-You can create an Amazon CloudWatch alarm that monitors an Amazon EC2 instance and automatically recovers the instance if it becomes impaired due to an underlying hardware failure or a problem that requires AWS involvement to repair. 
-- Terminated instances cannot be recovered. 
+You can create an Amazon CloudWatch alarm that monitors an Amazon EC2 instance and automatically recovers the instance if it becomes impaired due to an underlying hardware failure or a problem that requires AWS involvement to repair.
+- Terminated instances cannot be recovered.
 - A recovered instance is identical to the original instance, including the instance ID, private IP addresses, Elastic IP addresses, and all instance metadata
 
 ### Short Demo - When you first start an instance, these are the "2/2 checks passed"
@@ -2414,7 +2413,7 @@ EXAM: Meta data service is NOT AUTHENTICATED and NOT ENCRYPTED; anyone who can c
 ### DEMO - Instance Metadata
 1. 1-Click Deploy. 2600:1f18:5421:7603:dc5e:6920:45eb:8f84
 Commands for EC2 Connect session: https://learn-cantrill-labs.s3.amazonaws.com/awscoursedemos/0009-aws-associate-ec2-instance-metadata/lesson_commands.txt
-2. Download Instance Metadata functionality: 
+2. Download Instance Metadata functionality:
 - wget http://s3.amazonaws.com/ec2metadata/ec2-metadata (download)
 - chmod u+x ec2-metadata (make usable)
 - ec2-metadata --help (see list of commands)
@@ -2461,10 +2460,10 @@ docker push YOUR_USER/containerofcats:latest
 ## ECS - Elastic Container Service - Concepts
 ECS is to containers as EC2 is to virtual machines. A managed container-based compute service
 - Runs in two modes 1. EC2 2. Fargate
-- ECS let's you create a cluster. A Cluster is where you container runs from. 
+- ECS let's you create a cluster. A Cluster is where you container runs from.
 - Elastic Container Registry is the ECS Container Registry
 - Container Definition: Defines Images and Ports
-- Task Definition: A self contained application; the app as a whole. Stores a Task Role, an IAM Role. 
+- Task Definition: A self contained application; the app as a whole. Stores a Task Role, an IAM Role.
 - Task Role: IAM Role which the TASK assumes
 
 EXAM: Task Roles are the best practice way giving containers within ECS permission to interact with AWS Resources
@@ -2473,9 +2472,9 @@ EXAM: Cluster Modes available within ECS: Network Only (Fargate), EC2 Linux + Ne
 EXAM: Benefits of containers: Fast to start up, Portable, Lightweight
 
 ## ECS - Cluster Mode
-ECS is capable of running in EC2 mode or Fargate mode. EC2 mode deploys EC2 instances into your AWS account which can be used to deploy tasks and services. 
-- With EC2 mode you pay for the EC2 instances regardless of container usage. 
-- Fargate mode uses shared AWS infrastructure, and ENI's which are injected into your VPC. 
+ECS is capable of running in EC2 mode or Fargate mode. EC2 mode deploys EC2 instances into your AWS account which can be used to deploy tasks and services.
+- With EC2 mode you pay for the EC2 instances regardless of container usage.
+- Fargate mode uses shared AWS infrastructure, and ENI's which are injected into your VPC.
 - You pay only for container resources used while they are running.
 
 
@@ -2496,7 +2495,7 @@ The Two Modes when running ECS: EC2 Mode, Fargate Mode
 EXAM: When to use EC2 vs ECS (EC2) vs Fargate
 - EC2 VS ECS. Containers? ECS. Containers great for isolating applications
 - EC2? Large consistent workload, price conscious, make use of existing reservations
-- Overhead conscious? Fargate. Less mgmt overhead. 
+- Overhead conscious? Fargate. Less mgmt overhead.
 - Small / Burst / Batch / Periodic workloads? Fargate (since you only pay for consumed resources)
 
 ## DEMO ECS - Deploying 'container of cats' using Fargate
@@ -2566,7 +2565,7 @@ EC2 Bootstrapping is the process of configuring an EC2 instance to perform autom
 - User Data is OPAQUE to EC2, its just a block of data to EC2
 - User Data is NOT secure; don't use it for PWs or long term creds
 - User Data limited to 16KB in size
-- If you want to update User Data... stop instance, update data, and restart 
+- If you want to update User Data... stop instance, update data, and restart
 
 EXAM: Boot-time-to-Service-Time: how quickly you can bring an instance into service and have it ready for use by customers
 - measured in minutes
@@ -2606,13 +2605,13 @@ Steps:
 5. You can now `aws s3 ls` command in EC2 Connect because you have applied the IAM Role that has the S3ReadOnly permission to the EC2 instance
 6. Clean up > IAM: Delete A4LInstanceRole > EC2: Security: Modify IAM, select NO IAM Role > CFN: Delete Demo stack
 
-## EC2 - SSM Parameter Store 
+## EC2 - SSM Parameter Store
 The SSM Parameter store is a service which is part of Systems Manager which allows the storage and retrieval of parameters - string, stringlist or secure string.
 - The service supports encryption which integrates with KMS, versioning and can be secured using IAM.
 - The service integrates natively with many AWS services - and can be accessed using the CLI/APIs from anywhere with access to the AWS Public Space Endpoints.
 
-As previously mentioned, passing secret data through to EC2 instance with User Data is bad practice. 
-- SSM is storage for configuration and secrets 
+As previously mentioned, passing secret data through to EC2 instance with User Data is bad practice.
+- SSM is storage for configuration and secrets
 - Parameter store can store the following: String, StringList, SecureString
 -- There are hierarchies and Versioning of parameters
 -- Can be stored as plaintext and ciphertext (integrating with KMS)
@@ -2624,16 +2623,16 @@ Create some Parameters in the Parameter Store and interact with them via the com
 Steps:
 1. Nav to Systems Manager in AWS Console > Parameter Store > Create parameter
 2. Parameter 1 details: Name "/my-cat-app/dbstring" > value "db.allthecats.com:3306" > description "Connection string for cat app" > create
-- the fwd slashes create hierarchy in Parameter Store 
-3. Parameter 2: Name "/my-cat-app/dbuser" > value: "bosscat" > create 
+- the fwd slashes create hierarchy in Parameter Store
+3. Parameter 2: Name "/my-cat-app/dbuser" > value: "bosscat" > create
 4. Param 3 (secure): Name "/my-cat-app/dbpassword" > Type: SecureString > value: amazingsecretpassword1337 (encrypted)
 5. Param 4: Name "/my-dog-app/dbstring" > value: "db.ifwereallymusthavedogs.com:3306"
 6. Param 5: Name "/rate-my-lizard/dbstring" > value "db.thisisprettyrandom.com:3306"
 7. CloudShell (top menu) > try these commands:
-aws ssm get-parameters --names /rate-my-lizard/dbstring 
-aws ssm get-parameters --names /my-dog-app/dbstring 
-aws ssm get-parameters --names /my-cat-app/dbstring 
-aws ssm get-parameters-by-path --path /my-cat-app/ 
+aws ssm get-parameters --names /rate-my-lizard/dbstring
+aws ssm get-parameters --names /my-dog-app/dbstring
+aws ssm get-parameters --names /my-cat-app/dbstring
+aws ssm get-parameters-by-path --path /my-cat-app/
 aws ssm get-parameters-by-path --path /my-cat-app/ --with-decryption
 8. Clean up: Select all params > Delete
 
@@ -2656,7 +2655,7 @@ Steps:
 5. Connect Role to Instance: EC2 Instances > right-click instance, Security, Modify IAM role > Select CloudWatchRole > Update IAM Role
 6. EC2 Connect to Start CW Agent config wizard: Default OS, Enter > Default region (EC2), enter > user: root, enter > enter statsd, enter statsd port > interval, enter > enter for everything until "Which default metrics config do you want? input `3` for Advanced... [FOLLOW VIDEO for rest of this crap, it's mostly pressing Enter for defaults] - https://learn.cantrill.io/courses/1820301/lectures/41301605
 7. Store Config in Parameter Store: Press enter more for Defaults. Note: Most all of it is defaults, pay attn to the few that aren't
-8. CloudWatch Console > Log Groups. Look for the three file paths you created 
+8. CloudWatch Console > Log Groups. Look for the three file paths you created
 9. Cleanup > EC2, security: remove CW Role > IAM, Roles, Delete role > CFN, delete Stack
 
 ## EC2 Placement Groups
@@ -2668,7 +2667,7 @@ Allows you to choose placement of EC2 instances, so you can ensure that they're 
 3. Partition (Topology Awareness)
 
 - Cluster. For highest EC2 performance. Launch these all at the same time for similar placement/capacity, will be launched into single AZ. Instances in Cluster group have fast direct connections to each other. Cluster achieves 1-Gbps per single stream instead of the standard 5Gbps/stream. Lowest latency and max Packets-per-second possible in AWS (when paired with Enhanced Networking)
-EXAM: CLUSTER Placement Groups are ONE AZ ONLY, which is locked when launching the first instance. Close prox is what gives them best Performance of placement groups 
+EXAM: CLUSTER Placement Groups are ONE AZ ONLY, which is locked when launching the first instance. Close prox is what gives them best Performance of placement groups
 EXAM: VPC peers in cluster placement groups can span AZs, but this impacts performance
 EXAM: Cluster PGs not supported on all instance types
 EXAM: Launch all instances within cluster group at same time as best practice
@@ -2756,7 +2755,7 @@ Simple routing lets you configure standard DNS records, with no special Route 53
 EXAM: Use Simple Royuting when you want to route requests towards ONE SERVICE such as a web server
 
 ## R53 Health Checks
-Amazon Route 53 health checks monitor the health and performance of your web applications, web servers, and other resources. 
+Amazon Route 53 health checks monitor the health and performance of your web applications, web servers, and other resources.
 - Each health check that you create can monitor one of the following:
 -- The health of a specified resource, such as a web server
 -- The status of other health checks
@@ -2772,7 +2771,7 @@ Amazon Route 53 health checks monitor the health and performance of your web app
 Failover routing lets you route traffic to a resource when the resource is healthy or to a different resource when the first resource is unhealthy
 - Use when you want to configure "active passive failover"
 
-# DEMO - Using R53 and Failover Routing - NOTE: This demo requires an R53 registered domain 
+# DEMO - Using R53 and Failover Routing - NOTE: This demo requires an R53 registered domain
 Create Failover routing and private hosted zones. https://learn.cantrill.io/courses/1820301/lectures/41301585
 
 ## R53 - Multi Value Routing
@@ -2792,15 +2791,15 @@ Should be used when trying to optimize for performance and user experience
 - Latency DB is NOT real time
 
 ## R53 - Geolocation Routing
-Geolocation routing lets you choose the resources that serve your traffic based on the geographic location of your users, meaning the location that DNS queries originate from. 
+Geolocation routing lets you choose the resources that serve your traffic based on the geographic location of your users, meaning the location that DNS queries originate from.
 - Geolocation records are tagged with a location
 - Does not return the closest record, but that which are applicatble or the default or no answer. "Default" is backup answer
 - Good for regional restrictions, language specific content, or laod balancing across regional endpoints
 - To route traffic based on customer location. Not proximity, but based on tag and specificity
-EXAM: Geolocation routing NOT about closest recoird, but returns RELEVANT locations only 
+EXAM: Geolocation routing NOT about closest recoird, but returns RELEVANT locations only
 
 ## R53 - Geoproximity Routing
-Geoproximity routing lets Amazon Route 53 route traffic to your resources based on the geographic location of your users and your resources. 
+Geoproximity routing lets Amazon Route 53 route traffic to your resources based on the geographic location of your users and your resources.
 - You can also optionally choose to route more traffic or less to a given resource by specifying a value, known as a bias.
 -- A BIAS expands or shrinks the size of the geographic region from which traffic is routed to a resource. Can define a plus or minus bias + / -
 
@@ -2821,9 +2820,9 @@ DNSSEC strengthens authentication in DNS using digital signatures based on publi
 
 # Relational Database Service (RDS)
 ## Database Refresher & Models
-DBs are systems which store and manage data: 
-DB Types: 
-1) Relational Database Management System (RDBS, commonly SQL) 
+DBs are systems which store and manage data:
+DB Types:
+1) Relational Database Management System (RDBS, commonly SQL)
 - RDBS has a structure in & between tables of data; rigid schema
 - Fixed relationship between tables. These relationships are defined in advance
 2) Non-relational (NoSQL); more relaxed schemas
@@ -2873,14 +2872,14 @@ Why you SHOULD NOT run DB on EC2
 - Performance. AWS invests time into optimisation / features that you're missing
 
 ## Demo - RDS - Splitting Wordpress Monolith => APP & DB
-- Moving DB to new AZ, separate from Webserver/App 
+- Moving DB to new AZ, separate from Webserver/App
 
-Steps: 
+Steps:
 1. 1 click deploy > Create complete
 2. Copy WP instance IP, paste to browser > Title "The Best Cats!!", user "admin", PW "an1m4ls4l1f3", email test@test.com > Install
 3. A4L-WordPress, ec2 connect `mysqldump -u root -p a4lwordpress > a4lwordpress.sql` > PW an1m4ls4l1f3
 4. Inject a4lwordpress.sql into new DB `mysql -h privateipof_a4l-mariadb -u a4lwordpress -p a4lwordpress < a4lwordpress.sql`
-5.... Error at step 4. 
+5.... Error at step 4.
 6. Clean up > CFN > Delete Stack
 
 ## RDS - Architecture
@@ -2888,7 +2887,7 @@ Steps:
 - RDS provides multiple databases on one DB Server (instance)
 - RDS is a managed service, so no access to OS or SSH Access
 - RDS operates within a VPC
-- RDS Instance can have more than 1 DB in it, and each RDS Instance has its own Dedicated EBS-provided storage 
+- RDS Instance can have more than 1 DB in it, and each RDS Instance has its own Dedicated EBS-provided storage
 NOTE: Amazon Aurora is DIFFERENT from RDS
 Cost: Billed for resource allocation
 -- Cost #1: instance size/type
@@ -2908,10 +2907,10 @@ Steps:
 4. Set up RDS DB: RDS > Subnet Groups > Create a DB Subnet Group "a4lsngroup" for title/descrip > VPL a4l > Add subnets, select us-east-1a/b/c > Pick your subnets > go to VPC, Subnets and look for full names of sn-db-A/B/C to select those ones > Create
 5. Provision DB: RDS > DB > Create DB > Standard Create > select MySQL > engine version (currently 8.0.32 in demo video) > Template, Free Tier > DB instance identifier "a4lwordpress" > admin "a4lwordpress" > PW "4n1m4ls4L1f3" > Storage, uncheck "Enable storage autoscaling" > Connectivity, select a4l-vpc1 > VPC security group (firewall), Create New > name "a4lvpc-rds-sg" > Add'l Configuration, Initial DB Name "a4lwordpress" > Create DB
 6. Config Security Group so RDS DB is connected: RDS > DB's > a4lwordpress > Connecitivity & Security tab, click the VPC SG link and open in new tab > find your SG > Inboud Rules > Edit > Add Rule, Type MYSQL/Aurora, Source (magnifying glass icon) "MIGRATE2RDS-Instance..." > Save Rule
-7. Migrate Data to new RDS DB, create backup file to move: EC2 Connect with A4L-Wordpress > 
+7. Migrate Data to new RDS DB, create backup file to move: EC2 Connect with A4L-Wordpress >
 `mysqldump -h PRIVATEIPOFMARIADBINSTANCE -u a4lwordpress -p a4lwordpress > a4lwordpress.sql` -> replace private IP with Private IPv4 of a4l DB instance > Enter > use PW above > Enter
 8. Move backup SQL DB instance into RDS: `mysql -h CNAMEOFRDSINSTANCE -u a4lwordpress -p a4lwordpress < a4lwordpress.sql` -> Replace CNAME with Endpoint name in RDS db instance > Enter
-9. Point WP at RDS instance: 
+9. Point WP at RDS instance:
 `cd /var/www/html` >
 `sudo nano wp-config.php` -> Go to Database Hostname and replace the IPv4 pointing at the WB DB EC2 instance with the Endpoint name of the RDS instance...
 Looks like...
@@ -2960,7 +2959,7 @@ EXAM: RDS Backups live in S3 but are AWS Managed, so you never seem them
 - Occur once per day
 - Think of them as automated snapshots
 - If using single AZ, plan for a small IO pause and do it during downtime
-- Every 5 mins, Transaction Logs are recorded to S3. With these plus snapshots; you have a 5 Minute Recovery Point Objective 
+- Every 5 mins, Transaction Logs are recorded to S3. With these plus snapshots; you have a 5 Minute Recovery Point Objective
 - Retention Period. 0 - 35 days before AWS deletes the automated backups. If you select 35 days, you can restore to any point in time over that 35 day period
 - To avoid losing data beyond 35 days, you need to do a final manual snapshot
 
@@ -2984,7 +2983,7 @@ RDS Read Replicas can be added to an RDS Instance - 5 direct per primary instanc
 EXAM: Synchronous is MultiAZ, asynchronous is Read Replicas
 
 ### Read Replicas - Why do they matter?
-- Read performance and read scaling. 
+- Read performance and read scaling.
 -- You get 5 direct read-replicas per DB instance, each providing add'l instance of read performance
 -- Read-replicas can have read-replicas, but then lag starts to be a problem
 -- Global performance improvements
@@ -3001,7 +3000,7 @@ Steps:
 1. 1 click deploy
 2. Set up WP (The Best Cats!!, admin, 4n1m4ls4L1f3, test@test.com), create blog post
 3. Create snapshot: RDS > select DB > Actions, Take snapshot > name "a4lwordpress-with-cat-post-mysql-8032" > Take snapshot
-4. Enable MultiAZ: RDS > select database > Modify > Enable MultiAZ (this part costs money so I'm not doing it) 
+4. Enable MultiAZ: RDS > select database > Modify > Enable MultiAZ (this part costs money so I'm not doing it)
 
 Demo 2 - Restore RDS in the case of data corruption
 Steps:
@@ -3107,9 +3106,9 @@ Amazon RDS Proxy is a fully managed, highly available database proxy for Amazon 
 - Runs using a replication instance via EC2, requiring Source/Destination endpoints and Source/Target Databases
 - ONE of the endpoints must be running on AWS. Endpoints store connection info for source/target DBs
 - Replication Instance runs one or more Replication Tasks
-- Jobs can be 1 of 3 types: 
-1. Full Load (one-off full-data migration), 
-2. Full Load + CDC (change data capture, for ongoing replication), 
+- Jobs can be 1 of 3 types:
+1. Full Load (one-off full-data migration),
+2. Full Load + CDC (change data capture, for ongoing replication),
 3. or CDC only (to replicate only data changes, using native tools to bulk move initial data outside of DMS)
 - Schema Conversion Tool assists with schema conversion
 EXAM: DB Migration question? Default to DMS as answer, especially if talking about "no-downtime migration"
@@ -3151,13 +3150,13 @@ NOTE: any AZs within a VPC you're consuming the services provided by EFS, you sh
 `sudo dnf -y install amazon-efs-utils` package of tools which allows this instance to interact with EFS >
 `cd /etc` >
 `sudo nano /etc/fstab` >
-Paste this into 3rd line of nano: `file-system-id:/ /efs/wp-content efs _netdev,tls,iam 0 0` > 
+Paste this into 3rd line of nano: `file-system-id:/ /efs/wp-content efs _netdev,tls,iam 0 0` >
 6. Paste EFS file system ID of A4L EFS into the nano text above, replacing 'file-system-id`
 7. Save Nano: ctrl+o to save, Enter, ctrl+x to exit
 8. `df -k` still not showing anything. Time to mount file system: `sudo mount /efs/wp-content`, now `df -k` will show it >
 `cd /efs/wp-content` (move into new file system) >
 `sudo touch amazingtestfile.txt` (create test file)
-9. Instance B Connect: 
+9. Instance B Connect:
 df -k >
 sudo dnf -y install amazon-efs-utils >
 sudo mkdir -p /efs/wp-content >
@@ -3165,7 +3164,7 @@ sudo nano /etc/fstab >
 file-system-id:/ /efs/wp-content efs _netdev,tls,iam 0 0 >
 sudo mount /efs/wp-content >
 cd /efs/wp-content/ >
-ls -la -- you'll see amazingtestfile.txt in the directory which was created in instance A 
+ls -la -- you'll see amazingtestfile.txt in the directory which was created in instance A
 10. Clean up: EFS > Delete file system > Cloudformation > Delete stack
 
 ## AWS Backup
@@ -3191,12 +3190,12 @@ Regional Components - Regional entry point, scaling/resilience, app svc's/compon
 ## Evolution of Elastic Load Balancer (ELB)
 Currently 3 types of ELBs available in AWS split between v1 (avoid this) and v2 (use this). "ELB" refers to all 3.
 - Version 1: Classic Load Balancer (CLB), 2009. Not really layer 7, only one SSL per CLB
-- Version 2: 
+- Version 2:
 -- v2-1. Application Load Balancer (ALB): HTTP/HTTPS/WebSocket. Layer 7 device
 -- v2-2. Network Load Balancer (NLB): TCP, TLS, UDP. For apps that don't use HTTP/HTTPS, like email or SSH servers
 - Version 2 is faster, cheaper, supports target groups and rules
 
-## Elastic Load Balancer (ELB) 
+## Elastic Load Balancer (ELB)
 Job of a Load Balancer is to accept connections from a user and distribute that connection to the backend of the app
 - "dual stack" means using both IPv4/6
 - config'd to run in 2+ AZ's. 1+ nodes are placed into a subnet in each AZ and scale with load
@@ -3223,7 +3222,7 @@ EXAM: ELBs required 8+ free IPs per subnet, and at least /27 subnet to allow sca
 When to pick ALB vs NLB.
 - Remember, always avoid Version 1 Classic Load Balancer -- does not scale.
 
-### Version 2, APPLICATION Load Balancers: 
+### Version 2, APPLICATION Load Balancers:
 - Layer 7 LB's. Listens on either HTTP and/or HTTPS
 - Doesn't listen to any other Layer 7 protocols (SMTP, SSH, Gaming, etc)
 - Can't listen to TCP/TLS/UDP
@@ -3282,7 +3281,7 @@ Auto Scaling group contains a collection of Amazon EC2 instances that are treate
 Scaling policies are rules. Three ways you can scale auto-scaling groups:
 1. Manual Scaling. Manually adjust min/desired/max
 2. Scheduled Scaling. Time-based adjustment
-3. Dynamic Scaling (3 subtypes). Rules which react to something and change 
+3. Dynamic Scaling (3 subtypes). Rules which react to something and change
 - a. Simple Scaling. Often a pair of rules: "CPU above 50%,  +1. CPU below 50%, -1."
 - b. Stepped Scaling. Bigger +/- based on difference (generally use this over Simple unless simplicity is the priority)
 - c. Target Tracking. Eg.. Desired aggregate CPU to stay at 40%
@@ -3326,12 +3325,12 @@ Lifecycle hooks enable you to perform custom actions by pausing instances as an 
 - Can be config'd with EventBridge or SNS Notifications
 
 ## ASG - Health Check Comparison: EC2 VS ELB
-Amazon EC2 Auto Scaling can determine the health status of an instance using one or more of the following: 
+Amazon EC2 Auto Scaling can determine the health status of an instance using one or more of the following:
 - Amazon EC2. To identify hardware and software issues that may impair an instance. This is the Default for ASG
 - Elastic Load Balancing (ELB). Disabled by default. ELB health checks can be application aware (Layer 7)
 - Custom Health Checks. Instances marked Healthy/Unhealthy by an external system
 
-EXAM: Health Check Grace Period (default 300s); a delay before starting health checks which first allows system to launch, bootstrap, application start 
+EXAM: Health Check Grace Period (default 300s); a delay before starting health checks which first allows system to launch, bootstrap, application start
 
 ## Elastic Load Balancer - SSL Offload & Session Stickiness
 Three ways a load balancer handles secure connections: Bridge, Pass Through, Offloading
@@ -3339,7 +3338,7 @@ Three ways a load balancer handles secure connections: Bridge, Pass Through, Off
 - Pass Through. No encypt/decrpyt happens at ELB, instead each instance has SSL Cert installed
 - Offload. SSL decrypted at ELB and then only plain text HTTP goes through to instance. Instance doesn't need SSL cert or crypto compute capability
 
-### ELB - Connection Stickiness 
+### ELB - Connection Stickiness
 - With no stickiness, connections are distributed across all in-service backend instances
 - With stickiness, a cookie is generated (AWSALB) which locks the device to a single backend instance for a set duration: 1 second to 7 days
 NOTE: Instead of worrying about this, just make sure servers are stateless and state is stored elsewhere like the DB
@@ -3366,7 +3365,7 @@ Gateway Load Balancers enable you to deploy, scale, and manage virtual appliance
 - GWLB = network security at scale
 
 
-## Serverless and Application Services 
+## Serverless and Application Services
 
 ### Architecture Deep Dive - Event-Driven Architecture
 Types of architecture:
@@ -3393,7 +3392,7 @@ Types of architecture:
 EXAM: Lambda function timeout 900s (15 minutes). Anything beyond 15 mins can't use Lambda directly
 
 #### Common Uses of Lambda
-- Serverless applications 
+- Serverless applications
 - File processing
 - Database triggers
 - Serverless CRON
@@ -3433,7 +3432,7 @@ Asynchronous: Typically used when AWS svc's invoke lambda functions. Reprocessin
 
 Event Source Mapping: Typically used on streams or queues which don't support event generation to invoke Lambda (Kinesis data stream, DynamoDB streams, SQS queues, Amazon Managed streaming for Apache Kafka). Event Source Mapping polls these streams/queues looking for data and getting back 'source batches', split based on batch size, sent to Lambda function
 
-### Lambda - Versions 
+### Lambda - Versions
 Lambda can have versions... v1, v2, v3. The VERSION of Lambda function is 'code + config'
 - Versions are immutable when published and has its own ARN. $Latest points at the ..latest... version
 - Lambda functions can have aliases like DEV, STAGE, PROD which can be changed
@@ -3458,7 +3457,7 @@ EventBridge is replacing CW Events as EventBridge can do all the same things but
 - A default Event Bus exists on an AWS account for both CW Events and EB
 - In CW Events, only 1 event bus. In EB you can have add't event busses
 - Rules created match incoming events (or schedules)
--- Two rule types: 1) Event Pattern Rule 2) Schedule Rule 
+-- Two rule types: 1) Event Pattern Rule 2) Schedule Rule
 
 
 ## DEMO - Automated EC2 Control Using Lambda and Events
@@ -3476,7 +3475,7 @@ Gain experience of using Lambda for some simple account management tasks.
 10. Test Event: EC2Start Lambda Function, Test tab > Event name "test" > Test. Observe EC2 instances being started.
 11. Set up Event-driven Lambda Function: Lambda > New Function name "EC2Protect" > Runtime python 3.9 > Select IAM role that we created > Create function > Add code from file "lambda_instance_protect.py", Deploy
 12. Create EventBridge Rule for Lambda to receive: EventBridge > New Rule name "EC2Protect" > desc "Start protected instance" > select "rule with an event pattern" > Event Source "AWS events or EventBridge partner events" > Event pattern "AWS Services", "EC2", event type: EC2 Instance State-change Notification, Specific States: Stopped > Specific Instance IDs, paste instance 1 ID > Next > Target 1 AWS Svc, "Lambda function", Function: EC2Protect > Create Rule
-13. Clean up: Lambda, delete functions > EventBridge, delete Rules > IAM Policies, delete Lambda policy > Delete Lambda IAM Role > CloudFormation, delete Stack 
+13. Clean up: Lambda, delete functions > EventBridge, delete Rules > IAM Policies, delete Lambda policy > Delete Lambda IAM Role > CloudFormation, delete Stack
 
 ## Serverless Architecture
 The Serverless architecture is a evolution/combination of other popular architectures such as event-driven and microservices.
@@ -3506,7 +3505,7 @@ The Simple Notification Service or SNS is a PUB / SUB style notification system 
 - SNS can be cross-account with a TOPIC POLICY
 
 ## AWS Step Functions
-AWS Step Functions addresses some problems within Lambda. 
+AWS Step Functions addresses some problems within Lambda.
 - Lambda is FaaS, each Lambda should be as simple as possible; you'd never put a full application in a Lambda Function (execution duration limit: 15 minutes). Theoretically, you can chain Lambda functions but this gets messy at scale
 - Lambda runtime env's are stateless (can't hold state through different Lambda functions)
 
@@ -3538,7 +3537,7 @@ API Gateway is a managed service from AWS which allows the creation and manageme
 
 ### API Gateway - Authentication
 - Can use COGNITO user pools for authentication
-- Can use LAMBDA for authentication 
+- Can use LAMBDA for authentication
 
 ### API Gateway - Endpoint Types
 - Edge-optimized. Incoming requests routed to nearest CloudFront POP (point of presence)
@@ -3572,7 +3571,7 @@ Resource: https://docs.aws.amazon.com/apigateway/latest/api/CommonErrors.html
 
 ## Simple Queue Service (SQS)
 SQS queues are a managed message queue service in AWS which help to decouple application components, allow Asynchronous messaging or the implementation of worker pools.
-- SQS comes in 2 types: 
+- SQS comes in 2 types:
 1) Standard - best efforts; messages could be received out of order
 2) FIFO - guarantees the order
 - Like SNS, messages <= 256KB in size
@@ -3589,7 +3588,7 @@ EXAM - Fanout Architecture: SNS fans messages out to multiple SQS queues
 - Billing: Based on "requests". A request can be 1-10 messages up to 64KB total
 - Polling Types (2)
 1) Short Polling (immediate)
-2) Long Polling (waitTimeSeconds, up to 20s) - BEST PRACTICE; more cost effective as less requests per message. Will poll for a 20s duration collecting up to 10 messages and 64KB in data 
+2) Long Polling (waitTimeSeconds, up to 20s) - BEST PRACTICE; more cost effective as less requests per message. Will poll for a 20s duration collecting up to 10 messages and 64KB in data
 - SQS supports encryption at rest (KMS) and in-transit
 - Can add Queue policies
 
@@ -3607,7 +3606,7 @@ EXAM - FIFO queues Must have a .fifo suffix
 ## SQS - Delay Queues
 Delay queues provide an initial period of invisibility for messages; postpone delivery to consumers. Predefined periods can ensure that processing of messages doesn't begin until this period has expired.
 - A message is automatically hidden once it hits a queue
-- NOT the same as Visibility Timeout; VT is automatic re-processing of problem messages whereas this is an initial delay in processing of all messages 
+- NOT the same as Visibility Timeout; VT is automatic re-processing of problem messages whereas this is an initial delay in processing of all messages
 - DelaySeconds min is 0, it has to be non-zero to be a Delay Queue
 - NOT SUPPOERTED ON FIFO QUEUES
 
@@ -3662,7 +3661,7 @@ EXAM: CANNOT directly access the data via storage, only via APIs
 A user pool is a user directory in Amazon Cognito. With a user pool, your users can sign in to your web or mobile app through Amazon Cognito
 - Users can also sign in through social identity providers like Google, Facebook, Amazon, or Apple, and through SAML identity providers
 - Whether your users sign in directly or through a third party, all members of the user pool have a directory profile that you can access through a Software Development Kit (SDK).
-- Amazon Cognito identity pools (federated identities) enable you to create unique identities for your users and federate them with identity providers. With an identity pool, you can obtain temporary, limited-privilege AWS credentials to access other AWS services. 
+- Amazon Cognito identity pools (federated identities) enable you to create unique identities for your users and federate them with identity providers. With an identity pool, you can obtain temporary, limited-privilege AWS credentials to access other AWS services.
 
 Cognito provides the following for web/mobile apps:
 - authentication
@@ -3674,7 +3673,7 @@ Cognito has 2 components:
 - user directory mgmt/profiles, sign up and sign in (with UI), MFA and other security features
 - most AWS services CANNOT be accessed using JWT via User Pools
 - can use internal or social logins for sign in
-2. Identity pool: Swap external ID for temporary AWS credentials. 
+2. Identity pool: Swap external ID for temporary AWS credentials.
 - Unauthenticated ID's; guest users
 
 USER POOLS = SIGN IN / SIGN UP
@@ -3713,14 +3712,14 @@ AmazonMQ is an open-source message broker; an AWS implementation of Apache Activ
 -- If you need to support any of these, and use QUEUES and TOPICS - AmazonMQ is the tool to use.
 - Provides Queues and Topics (like SQS/SNS); one-to-one or one-to-many
 EXAM: Amazon MQ is NOT a public service; runs on a VPC and requires private networking to access it
-EXAM: AWS Integration required? Use SNS/SQS and not MQ. 
+EXAM: AWS Integration required? Use SNS/SQS and not MQ.
 EXAM: Migrate from an existing system with little to no app change? Amazon MQ
 EXAM: Need APIs like JMS or protocols like AMQP, MQTT, OpenWire, STOMP needed? Amazon MQ
 
 ## Amazon AppFlow
-Amazon AppFlow is a fully managed integration service that enables you to securely transfer data between Software-as-a-Service (SaaS) applications like Salesforce, SAP, Zendesk, Slack, and ServiceNow, and AWS services like Amazon S3 and Amazon Redshift, in just a few clicks. 
-- With AppFlow, you can run data flows at enterprise scale at the frequency you choose: on a schedule, in response to a business event, or on demand. 
-- You can configure data transformation capabilities like filtering and validation to generate rich, ready-to-use data as part of the flow itself, without additional steps. 
+Amazon AppFlow is a fully managed integration service that enables you to securely transfer data between Software-as-a-Service (SaaS) applications like Salesforce, SAP, Zendesk, Slack, and ServiceNow, and AWS services like Amazon S3 and Amazon Redshift, in just a few clicks.
+- With AppFlow, you can run data flows at enterprise scale at the frequency you choose: on a schedule, in response to a business event, or on demand.
+- You can configure data transformation capabilities like filtering and validation to generate rich, ready-to-use data as part of the flow itself, without additional steps.
 - AppFlow automatically encrypts data in motion, and allows users to restrict data from flowing over the public Internet for SaaS applications that are integrated with AWS PrivateLink, reducing exposure to security threats.
 -- Can use AppFlow Custom Connector SDK to build your own integration if the integration doesn't already exist
 - Exchange data between applications (connectors) using FLOWS; SYNC or AGGREGATE data
@@ -3757,7 +3756,7 @@ You can specify TTLs using headers.
 --- Cache-Control s-maxage (seconds until expiry)
 --- Expires (Date & Time for expiry)
 
-- Cache Invalidation: Performed on a distribution and applied to all Edge Locations 
+- Cache Invalidation: Performed on a distribution and applied to all Edge Locations
 -- immediately expires objects regardless of their TTL based on the invalidation pattern that you specify
 -- Instead of Cache Invalidation, you can use Versioned File Names (whiskers1_v1.jpg // _v2.jpg // _v3.jpg) which is a better practice
 
@@ -3802,7 +3801,7 @@ Implement a CloudFront distribution using an S3 bucket as the origin.
 Steps:
 1. 1-click deploy. At this point, site in demo is static S3
 2. Host site on CloudFront: CloudFront > Create Distro > Origin domain, select s3 bucket "cfands3-top10cats[...]" > Cache key and origin requests, select "CachingOptimized" > Default root object "index.html" > Deploy/Create
-Note: You can now access CDN cached files that are cached in Edge Locations. You can Invalidate (billed per Inval., do it less frequently). In this part, we changed merlin.jpg file to new image and played with caching in CloudFront. 
+Note: You can now access CDN cached files that are cached in Edge Locations. You can Invalidate (billed per Inval., do it less frequently). In this part, we changed merlin.jpg file to new image and played with caching in CloudFront.
 3. Add custom Domain name: Didn't have custom Domain made in R53 so had to watch at this point
 4. SSL via ACM:
 
@@ -3814,7 +3813,7 @@ Origin Access Identities (OAI) are a feature where virtual identities can be cre
 ### Origin-side Security
 #### S3 Origin
 You can have S3 Origin, or Custom Origin (S3 static website).
-OAI's are a type of Identity that are associated with CF Distros to 'become' that OAI to be used in S3 Bucket Policies ; S3 Origin is locked down to only be accessible by this OAI, all else Implicit Denied. 
+OAI's are a type of Identity that are associated with CF Distros to 'become' that OAI to be used in S3 Bucket Policies ; S3 Origin is locked down to only be accessible by this OAI, all else Implicit Denied.
 - Explicit Allow on S3 Policy for OAI
 - Best practice: Create 1 OAI for 1 CF Distro
 #### Custom Origin - Custom Headers or Traditional Firewall
@@ -3852,7 +3851,7 @@ Lambda@Edge allows cloudfront to run lambda function at CloudFront edge location
 AWS Global Accelerator is designed to improve global network performance by offering entry point onto the global AWS transit network as close to customers as possible using Anycast IP addresses
 - Designed to optimize the flow of data from user to AWS infrastructure
 - Reduce number of "hops"
-- When to use CloudFront VS Global Accelerator? 
+- When to use CloudFront VS Global Accelerator?
 -- CloudFront is focused on improving content delivery to end-users via Edge Caching. Question mentions caching? Prolly CloudFront
 -- Global Accelerator is focused on optimizing traffic routing to your applications -- by entering the network closer to the customer. Question mentions TCP/UDP? Prolly Global Accelerator
 Global Accelerator is a good fit for non-HTTP use cases, such as gaming (UDP), IoT (MQTT), or Voice over IP, as well as for HTTP use cases that specifically require static IP addresses or deterministic, fast regional failover.
@@ -3938,7 +3937,7 @@ IPsec VPN negotiation occurs in two phases:
 IKE Phase 1: Internet Key Exchange. IKE v1 and IKE v2 (v2 is newer)
 - authentication with asummetric encryption to agree on and create a shared symmetric key
 - "Diffie-Helman Private Key"/DH Key created by both sides in Phase 1.. this is what actually creates the symmetrical key for phase 2
-IKE Phase 2: Getting VPN up and running 
+IKE Phase 2: Getting VPN up and running
 - built on phase one using the symmetric key created in phase 1
 - Phase 2 can be town down and rebuilt when needed, phase 1 can stay
 
@@ -3948,9 +3947,9 @@ IKE Phase 2: Getting VPN up and running
 - difference being how they match 'interesting traffic'
 
 ## AWS Site-to-Site VPN. AWS <-> on-premises VPN
-AWS Site-to-Site VPN is a hardware VPN solution which creates a highly available IPSEC VPN between an AWS VPN and external network such as on-premises traditional networks. 
+AWS Site-to-Site VPN is a hardware VPN solution which creates a highly available IPSEC VPN between an AWS VPN and external network such as on-premises traditional networks.
 - Quickest way to create network link between AWS and non-AWS (less than an hour)
-- VPNs are quick to setup vs direct connect, don't offer the same high performance, but do encrypt data in transit. 
+- VPNs are quick to setup vs direct connect, don't offer the same high performance, but do encrypt data in transit.
 - Runs over the public internet (unlessw otherwise specificed)
 EXAM - Highly Available
 
@@ -3969,7 +3968,7 @@ EXAM - AWS speed limitation of VPNs 1.25Gbps
 EXAM - Latency is inconsistent as it is through Public Internet. If need low latency, maybe Direct Connect
 
 ## Direct Connect (DX) Concepts
-AWS Direct Connect links your internal network to an AWS Direct Connect location over a standard Ethernet fiber-optic cable. One end of the cable is connected to your router, the other to an AWS Direct Connect router. With this connection, you can create virtual interfaces directly to public AWS services (for example, to Amazon S3) or to Amazon VPC, bypassing internet service providers in your network path. 
+AWS Direct Connect links your internal network to an AWS Direct Connect location over a standard Ethernet fiber-optic cable. One end of the cable is connected to your router, the other to an AWS Direct Connect router. With this connection, you can create virtual interfaces directly to public AWS services (for example, to Amazon S3) or to Amazon VPC, bypassing internet service providers in your network path.
 
 An AWS Direct Connect location provides access to AWS in the Region with which it is associated. You can use a single connection in a public Region or AWS GovCloud (US) to access public AWS services in all other public Regions.
 
@@ -4035,7 +4034,7 @@ File gateway bridges local file storage over NFS (linux)/SMB(windows) with S3 St
 Snowball, Snowball Edge and Snowmobile are three parts of the same product family designed to allow the physical transfer of data between business locations and AWS.
 
 ### Snowball
-- Order physical device from AWS. Encrypted using KMS. 50TB or 80TB. 
+- Order physical device from AWS. Encrypted using KMS. 50TB or 80TB.
 EXAM - Range of data to use it for 10TB - 10PB
 EXAM - Can order multiple devices / to multiple premises
 EXAM - STORAGE ONLY, no compute
@@ -4052,7 +4051,7 @@ Portable data center within a shipping container on a truck (mobile, duh)
 - NOT for multi-site (unless HUGE) or sub 10PB
 
 ## Directory Service
-What are directories? Identity and asset info storage. Stores objects with structure (inverse tree). 
+What are directories? Identity and asset info storage. Stores objects with structure (inverse tree).
 - Multiple trees grouped into a FOREST
 - Commonly used with Windows environments
 - Users, devices, groups, servers, file shares -- things that can be objects in a directory
@@ -4131,7 +4130,7 @@ EXAM - Secrets manager is capable of automatic CREDENTIAL ROTATION using LAMBDA.
 - Secrets encrypted using KMS
 - Integrates with RDS
 
-EXAM Secrets Manager VS Parameter Store? SM is designed for SECRETS (passwords, API Keys), SM auto rotation of secrets with Lambda, 
+EXAM Secrets Manager VS Parameter Store? SM is designed for SECRETS (passwords, API Keys), SM auto rotation of secrets with Lambda,
 - Parameter store stores strongs, secure strings--for config info
 
 ## Application Layer (L7) Firewall
@@ -4149,7 +4148,7 @@ AWS WAF is an L7 web application firewall that helps protect your web applicatio
 --- Action: Allow, Block, Count, custom respon, label
 
 ## AWS Shield
-For DDoS protection. AWS Shield provides always-on detection and automatic inline mitigations that minimize application downtime and latency, so there is no need to engage AWS Support to benefit from DDoS protection. 
+For DDoS protection. AWS Shield provides always-on detection and automatic inline mitigations that minimize application downtime and latency, so there is no need to engage AWS Support to benefit from DDoS protection.
 
 You can use AWS WAF web access control lists (web ACLs) to help minimize the effects of a Distributed Denial of Service (DDoS) attack. For additional protection against DDoS attacks, AWS also provides AWS Shield Standard and AWS Shield Advanced. AWS Shield Standard is automatically included at no extra cost beyond what you already pay for AWS WAF and your other AWS services.
 - Shield Standard is free. Automatically provided with CloudFront and R53
@@ -4163,12 +4162,12 @@ CloudHSM - an AWS provided Hardware Security Module products. Similar to KMS... 
 
 ### When to use KMS over CloudHSM
 - KMS is a SHARED service and AWS has certain level of access to it. KMS is mostly Level 2 FIPS
-EXAM - CloudHSM is a SINGLE TENANT HSM (hardware security module). CloudHSM is aws provisioned but fully customer managed. CloudHSM is LEVEL 3 FIPS compliant. 
+EXAM - CloudHSM is a SINGLE TENANT HSM (hardware security module). CloudHSM is aws provisioned but fully customer managed. CloudHSM is LEVEL 3 FIPS compliant.
 * EXAM - Need CloudHSM if need access by industry standard APIs (not AWS api's); JCE, PKCS#11, CryptoNG
 EXAM - Need to enable Transparent Data Encryption (TDE) for Oracle DBs? CloudHSM
 EXAM - Protect private keys for an issuing CA (cert authority)
 
-## AWS Config 
+## AWS Config
 AWS Config is a service which records the configuration of resources over time (configuration items) into configuration histories.
 - All the information is stored regionally in an S3 config bucket.
 - AWS Config is capable of checking for compliance .. and generating notifications and events based on compliance.
@@ -4192,7 +4191,7 @@ Inspect for COMPLIANCE. Amazon Inspector is an automated security assessment ser
 - Packages: Host Assessments, Common Vulnerabilities/Exposures (CVE), Center for Internet Security (CIS) Benchmarks, Security Best Practices for Amazon Inspector
 
 ## Amazon Guardduty
-Guard Duty is an automatic threat detection service which reviews data from supported services and attempts to identify any events outside of the 'norm' for a given AWS account or Accounts. 
+Guard Duty is an automatic threat detection service which reviews data from supported services and attempts to identify any events outside of the 'norm' for a given AWS account or Accounts.
 - CONTINUOUS SECURITY MONITORING SERVICE
 - Ingests Logs and Events
 
@@ -4201,8 +4200,8 @@ Guard Duty is an automatic threat detection service which reviews data from supp
 
 # Infrastructure as Code (CloudFormation)
 ## CloudFormation Physical & Logical Resources
-- CloudFormation defines logical resources within TEMPLATES (using YAML or JSON). 
--- The logical resource defines the WHAT, and leaves the HOW up to the CFN product. 
+- CloudFormation defines logical resources within TEMPLATES (using YAML or JSON).
+-- The logical resource defines the WHAT, and leaves the HOW up to the CFN product.
 - A CFN stack creates a physical resource for every logical resource - updating or deleting them as a template changes.
 - TEMPLATES create STACKS. A stack creates/modifies/deletes physical resources based on the logical resources in the template
 
@@ -4226,7 +4225,7 @@ The optional Mappings section matches a key to a corresponding set of named valu
 - Mappings Improves Template Portability
 
 ## CloudFormation Outputs
-The optional Outputs section declares output values that you can import into other stacks (to create cross-stack references), return in response (to describe stack calls), or view on the AWS CloudFormation console. 
+The optional Outputs section declares output values that you can import into other stacks (to create cross-stack references), return in response (to describe stack calls), or view on the AWS CloudFormation console.
 - For example, you can output the S3 bucket name for a stack to make the bucket easier to find.
 - Output section is optional
 - Visible as outputs from CLI, console UI, parent stack, can be exported to other stacks (cross-stack references)
@@ -4237,9 +4236,9 @@ The optional Outputs section declares output values that you can import into oth
 ## CloudFormation Conditions
 The optional Conditions section contains statements that define the circumstances under which entities are created or configured. You might use conditions when you want to reuse a template that can create resources in different contexts, such as a test environment versus a production environment.
 - Conditions evaluated to True or False and are processed BEFORE resources are created
-- In your template, you can add an EnvironmentType input parameter, which accepts either prod or test as inputs. 
-- Conditions are evaluated based on predefined pseudo parameters or input parameter values that you specify when you create or update a stack. 
-- Within each condition, you can reference another condition, a parameter value, or a mapping. 
+- In your template, you can add an EnvironmentType input parameter, which accepts either prod or test as inputs.
+- Conditions are evaluated based on predefined pseudo parameters or input parameter values that you specify when you create or update a stack.
+- Within each condition, you can reference another condition, a parameter value, or a mapping.
 - Components: Parameter, Conditions, Resources
 
 ## CloudFormation DependsOn
@@ -4267,7 +4266,7 @@ Nested stacks allow for a hierarchy of related templates to be combined to form 
 --- Exports must be UNIQUELY NAMED in region
 
 ## CloudFormation Stack Sets
-StackSets are a feature of CloudFormation allowing infrastructure to be deployed and managed across MULTIPLE REGIONS and MULTIPLE ACCOUNTS from a single location. 
+StackSets are a feature of CloudFormation allowing infrastructure to be deployed and managed across MULTIPLE REGIONS and MULTIPLE ACCOUNTS from a single location.
 - Additionally it adds a dynamic architecture - allowing automatic operations based on accounts being added or removed from the scope of a StackSet.
 - StackSets are containers in an admin account which contain stack instances which REFERENCE stacks
 -- Stack instances and stacks are in TARGET ACCOUNTS
@@ -4319,7 +4318,7 @@ DynamoDB is a NoSQL fully managed Database-as-a-Service (DBaaS) product availabl
 ### DynamoDB - Tables
 - Table is a grouping of ITEMS with the same PRIMARY key. Item is like a row in a traditional DB
 -- item max size 400KB. item can have all, none, or some of the attibutes/columns in an item(row)
-- Table has two primary keys to pick from: 
+- Table has two primary keys to pick from:
 1. Partition key. made up of just a partition key
 2. Composite primary key. made up of a partition key and a sort key
 
@@ -4386,7 +4385,7 @@ DynamoDB Streams are a 24 hour rolling window of time ordered list of changes to
 DynamoDB Global Tables provides multi-master global replication of DynamoDB tables which can be used for performance, High Avail or Disaster Recovery/Biz Continuity reasons.
 - GLOBAL table and then multiple regions with tables becoming REPLICA tables
 - LAST WRITER WINS is used for conflict resolution; the most recent Write is what is replicated to other tables
-- Global app must tolerate eventual consistency. However, region reads in the same region as writes are strongly consistent 
+- Global app must tolerate eventual consistency. However, region reads in the same region as writes are strongly consistent
 
 ## DynamoDB - Accelerator (DAX)
 DynamoDB Accelerator (DAX) is an in-memory cache designed specifically for DynamoDB. It should be your default choice for any DynamoDB caching related questions.
@@ -4397,8 +4396,8 @@ DynamoDB Accelerator (DAX) is an in-memory cache designed specifically for Dynam
 - Good for read-heavy work loads
 
 ## DynamoDB - TTL
-Amazon DynamoDB Time to Live (TTL) allows you to define a per-item timestamp to determine when an item is no longer needed. 
-- Shortly after the date and time of the specified timestamp, DynamoDB deletes the item from your table without consuming any write throughput. 
+Amazon DynamoDB Time to Live (TTL) allows you to define a per-item timestamp to determine when an item is no longer needed.
+- Shortly after the date and time of the specified timestamp, DynamoDB deletes the item from your table without consuming any write throughput.
 - TTL is provided at no extra cost as a means to reduce stored data volumes by retaining only the items that remain current for your workload’s needs.
 
 ## Amazon Athena
@@ -4413,7 +4412,7 @@ EXAM - Best option for querying AWS logs; VPC flow logs, CloudTrail, ELB Logs, c
 ## Elasticache
 Elasticache is a managed in-memory cache which provides a managed implementation of the redis or memcacheD engines. Useful for READ-HEAVY workloads that demand low latency, scaling reads in a cost effective way and allowing for externally hosted user session state
 - in-memory database for high performance
-- Two engines: 
+- Two engines:
 1. Redis. supports advanced data structures. Multi-AZ. Backup and restore.
 2. Memcached. Supports simple data structures. No backups. Multi-threaded
 - reduces database workloads
@@ -4435,7 +4434,7 @@ Redshift is a column based, petabyte-scale, data warehousing product within AWS
 - SERVER based
 
 # MACHINE LEARNING
-## Amazon Comprehend 
+## Amazon Comprehend
 Amazon Comprehend is a natural-language processing (NLP) service that uses machine learning to uncover valuable insights and connections in text.
 - input document and it parses and develops insights (like name, addresses, PII, phrases, common elements, sentiment)
 - pre-trained or custom models
@@ -4448,7 +4447,7 @@ Amazon Kendra is an intelligent search service powered by machine learning (ML).
 - suppports wide range of question types: factoid, descriptive, keyword
 - Kendra is a backend service that you'd API-integrate with your app for search functionality
 ### Kendra Concepts
-- Index. Searchable data 
+- Index. Searchable data
 - Data source. Where your data lives; S3, Google Workspace, RDS, Salesforce, FSx, etc etc
 - Documents. Structured and unstructured indexable items
 
@@ -4457,7 +4456,7 @@ Amazon Lex is a fully managed artificial intelligence (AI) service with advanced
 - interactive chat bots
 - backend service that you'll use to add capabilities to your application
 - POWERS THE ALEXA SERVICE
-- Automatic Speesh Recognition (ASR); sppech-to-text, Natural Language Understanding (NLU); intent, 
+- Automatic Speesh Recognition (ASR); sppech-to-text, Natural Language Understanding (NLU); intent,
 - Chatbots, Voice Assistance, Q&A Bots, Phone bots
 
 ## Amazon Polly
@@ -4491,7 +4490,7 @@ Amazon Translate is a neural machine translation service that delivers fast, hig
 
 ## Amazon Forecast
 Amazon Forecast is a fully managed service that uses statistical and machine learning algorithms to deliver highly accurate time-series forecasts.
-- Predicting retail demand, supply chain, staffing, web traffic. 
+- Predicting retail demand, supply chain, staffing, web traffic.
 - Import historical & related data, understand what's normal, output forecasts and forecast explainability
 - backend style service that integrates with your apps or you can use web console, CLI. And APIs, Python SDK
 
@@ -4515,4 +4514,4 @@ AWS Local Zones are a type of infrastructure deployment that places compute, sto
 - Local Zones support DX (direct connect)
 - Local Zones have Private networking with their parent region
 - Not all products support Local Zones
-- HIGHEST PERFORMANCE REQUIRED? Local Zones 
+- HIGHEST PERFORMANCE REQUIRED? Local Zones
