@@ -20,7 +20,7 @@ The OSI (Open Systems Interconnection) model is a framework that describes the f
 ### Layer 1 - Physical
 Imagine you have two laptops at home and you want to LAN game between the two. You have a physical connection/medium between the two laptops (network interface card, network cable).
 
-Physical Medium: can be Copper (electrical), fiber (light), of WiFi (RF). 
+Physical Medium: can be Copper (electrical), fiber (light), of WiFi (RF).
 
 A Layer 3 device has the capabilities of all layers under it (3, 2, and 1). A Layer 1 device only has the capabilities of Layer 1, as no layers are below it.
 
@@ -94,7 +94,7 @@ Subnet Masks: ID's host and network parts of IP addresses. So it can know when t
 #### L3: Route Tables & Routes
 How a router decides where to send data.
 
-Every router has at least 1 route table. This is how a router knows where to send data. Two fields: 1) destination field 2) Next Hop/Target. The larger the prefix, the more specific the route (/0, /16, /32). Routers prefer more specific routes.  
+Every router has at least 1 route table. This is how a router knows where to send data. Two fields: 1) destination field 2) Next Hop/Target. The larger the prefix, the more specific the route (/0, /16, /32). Routers prefer more specific routes.
 
 /24 = first 24 bits for network, last 8 bits are for host.
 
@@ -103,7 +103,7 @@ Default Route: 0.0.0.0/0 = matches if nothing else does.
 IMPORTANT: When ISP router is forwarding packet to AWS router, it's forwarding it at Level 2; wrapped in a Frame. How do we determine MAC address of AWS router? Address Resolution Protocol
 
 #### L3: Address Resolution Protocol
-Used when Layer 3 packet needs to be encapsulated in a Frame and sent to MAC address. You don't know the MAC address, but you need to get it. This is where ARP comes in. 
+Used when Layer 3 packet needs to be encapsulated in a Frame and sent to MAC address. You don't know the MAC address, but you need to get it. This is where ARP comes in.
 - ARP will give you MAC address with given IP address
 - ARP broadcasts on Layer 2
 
@@ -145,8 +145,8 @@ SYN - sequence numbers
 We will cover the basics of NAT, including how it works, its different types, and the benefits and drawbacks of using NAT.
 - NAT is a process designed to address growing shortages of IPv4 addresses
 - Translates Private IPv4 addresses to Public and back as they cannot communicate otherwise. This is what gets Private IPs on the internet
--- Publically routable addresses (must be unique)
--- Private addresses (don't need to be unique, can be used multiple places)
+  - Publicly routable addresses (must be unique)
+  - Private addresses (don't need to be unique, can be used multiple places)
 - Router is an example of a NAT device
 
 #### Types of NATs (3)
@@ -170,15 +170,18 @@ Class B Address Space: 128.0.0.0 -> 191.255.255.255 (for larger businesses that 
 Class C Address Space: 192.0.0.0 -> 223.255.255.255 (for smaller businesses not large enough for B or A)
 Class D & Class E: D for Multicast, E is Reserved
 
-#### Private IP Adresses
+#### Private IP Addresses
+
 Defined by a standard RFC1918
 
 When possible, allocate non-overlapping ranges across your networks.
 
 ##### IPv4 Address Space
+
 See Class A - E above. 4,294,967,296 total IPs in IPv4. Too few which is why IPv6 was created (340 trillion trillion trillion addresses)
 
 ##### IP Subnetting (IPv4)
+
 Subnetting takes a large network and breaks into smaller networks.
 
 CIDR (Classless Inter-Domain Routing) - Let's us take networks and break them down, determining size of network (ex. /16 prefix)
@@ -227,10 +230,10 @@ Eg. 133.33.33.7 -> Dotted decimal notation, which is what a human sees
 - Computer sees 10000101.00100001.00100001.00000111
 
 #### Decimal to Binary
-Eg. 133.33.33.7 to binary. 
+Eg. 133.33.33.7 to binary.
 HINT: Use binary table https://www.networkacademy.io/ccna/ip-subnetting/converting-ip-addresses-into-binary
 - 133, 33, 33, 7 are numbers each between 0 - 255. Tackle these sets of number individually. Each number in IP is 8 bits.
--- 133. If this number is less than Binary Position Value, write a 0. If equal or larger, minus binary position from your decimal number, add 1 in binary column (133 - 128 = 5. 
+-- 133. If this number is less than Binary Position Value, write a 0. If equal or larger, minus binary position from your decimal number, add 1 in binary column (133 - 128 = 5.
 -- Position two is 5. 5 is less than 64, so write a 0. Position 3-5 are also less than 5. Put 0's
 -- Position 6. Remaining value is 5, Binary Position Value is 4. 5 - 4 = 1. Put a 1 in position 6
 
@@ -270,7 +273,7 @@ Border Gateway Protocol (BGP) is a routing protocol used to exchange routing inf
 In summary, an AS will advertise all the shortest paths it knows to all its peers, as the AS prepends its own AS number onto the path, this creates a source-to-destination path which BGP routers can learn and propogate.
 
 #### Stateful VS Stateless Firewalls
-Firewalls are an essential component of network security that help protect against unauthorized access and attacks. 
+Firewalls are an essential component of network security that help protect against unauthorized access and attacks.
 There are two primary types of firewalls: stateful and stateless
 - Stateful: A stateful firewall is designed to monitor and track the state of network connections, keeping track of the status of individual network sessions to make more informed decisions about what network traffic to allow or deny
 - Stateless: stateless firewall examines each individual network packet in isolation and makes decisions based on predetermined rules, without any awareness of the state of the network connection
@@ -315,7 +318,7 @@ IPSEC, or Internet Protocol Security, is a suite of protocols used to secure Int
 
 ##### Fibre Optic Cables
 - Alternative way to transmit data VS copper cables. Fiber optic cables transmits light over glass/plastic medium (VS electric over copper). Fiber also resistance to electromagnetic interference and less prone to water ingress. Fiber is more consistent; better for higher speeds, larger distances, etc.
-- Physical construction is cable and connector. 
+- Physical construction is cable and connector.
 - Fiber diameter expressed as X/Y eg. 9/125. X is diameter of core, Y is diameter of cladding (both in microns). Light bounces off inside of core, which is why its diameter is important. Core/cladding are for the data transmission. The buffer is a boundary surrounding the core for protection
 - Single Mode and Multi-Mode Fiber
 -- Single Mode. Small core, 8-9 microns, yellow jacket usually. Little bounce, little distortion. Best for high speed over long distance. Laser optics
@@ -327,17 +330,17 @@ IPSEC, or Internet Protocol Security, is a suite of protocols used to secure Int
 Encryption is the process of converting data into a form that is unreadable to unauthorized users
 - Encryption Approaches: 2
 -- 1. Encryption at Rest. One party. Eg. Local laptop encrypting/decrypting data as it's written / read from disc. Used in cloud environments.
--- 2. Encryption In Transit. Protecting data as transferred between two places. Multiple individuals/systems involved Eg. Laptop to bank and back (applying encryption wrapper). 
+-- 2. Encryption In Transit. Protecting data as transferred between two places. Multiple individuals/systems involved Eg. Laptop to bank and back (applying encryption wrapper).
 
 - Concepts
--- Plain text (document, image, app), algorithm (plain text + encryption key = encrypted data), key (a 'password'), ciphertext created from all the previous stuff. Decrypt: ciphertext + key = plain text. 
+-- Plain text (document, image, app), algorithm (plain text + encryption key = encrypted data), key (a 'password'), ciphertext created from all the previous stuff. Decrypt: ciphertext + key = plain text.
 
 - Symmetric
 Same key used for both encryption and decryption processes. Transferring this key is the problem here.
 
 - Asymmetric
 Keys used in asymmetric encryption are also asymmetric
--- Asym keys are formed of twp parts: Public and Private keys. Only private key can decrypt data. No issue with public key being stolen as it is made to be accessible. Asym used with two parties involves where the two parties have never physically met before. Computationally more difficult than symmetric.
+  - Asym keys are formed of twp parts: Public and Private keys. Only private key can decrypt data. No issue with public key being stolen as it is made to be accessible. Asym used with two parties involves where the two parties have never physically met before. Computationally more difficult than symmetric.
 
 - Signing
 Uses asymmetric keys to verify identity. Encryption doesn't prove identity, which is why Signing exists. Message gets signed with private key for verification.
@@ -353,12 +356,12 @@ KMS (Key Management Services) - Used to encrypt data less than 4kb in size (othe
 
 #### Hardware Security Modules (HSM)
 Hardware Security Modules (HSMs) are physical devices designed to provide a high level of security and cryptographic processing to protect sensitive data and keys
-- HSM isolated from main infrastructure. For cryptographic operations, you send the operations to the isolated HSM system. Keys created/stored/authenticatednever leave HSM. 
+- HSM isolated from main infrastructure. For cryptographic operations, you send the operations to the isolated HSM system. Keys created/stored/authenticatednever leave HSM.
 - Tamper proof and hardened against physical or logical attacks
 - Role Separation (admins w/o full access)
 
 #### Hash Functions & Hashing
-Hash functions are mathematical algorithms that transform input data into a fixed-length string of characters, called a hash or message digest. Hashing is the process of applying a hash function to data to produce a unique and irreversible representation of the original data. Hash functions are widely used in computer security and cryptography for data integrity and authentication, digital signatures, password storage, and more. 
+Hash functions are mathematical algorithms that transform input data into a fixed-length string of characters, called a hash or message digest. Hashing is the process of applying a hash function to data to produce a unique and irreversible representation of the original data. Hash functions are widely used in computer security and cryptography for data integrity and authentication, digital signatures, password storage, and more.
 
 The main characteristics of a hash function are its one-way property, where it is easy to compute the hash value of the input data but computationally infeasible to reconstruct the original data from the hash value, and its collision resistance, where it is highly unlikely for two different inputs to produce the same hash value
 
@@ -390,10 +393,10 @@ If you visit netflix.com, the computers communicating don't use the namespace "n
 TIP: You MUST understand DNS to work in networking / AWS
 
 ##### DNS 101: Why do we need lots of DNS servers?
-Problems with 1 (or a few) DNS servers: 
+Problems with 1 (or a few) DNS servers:
 - Obvious risk problems. Bad actors could attack infrastructure
 - Scaling problem (almost everyone uses DNS globally)
--- This demands a hierarchical structure
+  - This demands a hierarchical structure
 
 ##### DNS 101: DNS Terms
 DNS Zone. A database containing records (URLs etc)
@@ -434,15 +437,15 @@ Registrar VS Hosting Provider:
 #### DNS 101: DNSSEC
 DNSSEC strengthens authentication in DNS using digital signatures based on public key cryptography. With DNSSEC, it's not DNS queries and responses themselves that are cryptographically signed, but rather DNS data itself is signed by the owner of the data
 - Two improvements over DNS: 1) origin authentication (is the data from the correct entity), 2) data integrity protection (has the data been modified)
--- by creating cryptographically verifiable DNS Chain of Trust
--- DNSSEC is additive to DNS, not replacing DNS. DNS-only device won't receive DNSSEC results
+  - by creating cryptographically verifiable DNS Chain of Trust
+  - DNSSEC is additive to DNS, not replacing DNS. DNS-only device won't receive DNSSEC results
 
 ##### How DNSSEC Works within a Zone
 How it allows a DNSSEC to validate a resource within a zone (data integrity)
 
 TERM: Resource Records Set (RRSE). icann.org zone has the following:  Resource Records (cname, A record, AAAA record, 4 MX records, mail exchange) -- 4 total resource record sets: cname, A, AAAA, MX. RRSETs are used within DNSSEC. DNSSEC looks at record sets, not individual records.
 - RRSIG stores a digital signature for RRSET: Zone Signing Key (ZSK). This public/private key set is separate from the zone. ZSK is record #256. RRSIG validates RRSETS.
--- Uses digital signing and hashing
+  - Uses digital signing and hashing
 
 TERM: Key Signing Key (KSK, record #257). Ensures that a Zone Signing Key is trusted. The Private KSK creates an RRSIG from DNSKey (ZSK)
 
@@ -456,7 +459,7 @@ TERM: Delegated Signer (DS): Contains a HASH of the child domain's public KSK. L
 #### DNS 101: DNSSEC Root Signing Ceremony
 Controlling the keys of the internet. In case of Root Zone, there is no parent zone to provide trust -- we need a way to create this TRUST ANCHOR
 - Key to internet: Private "." DNS Root Key Signing Key
--- This key is explicitly trusted by everything
+  - This key is explicitly trusted by everything
 - Ultimately, you're trying to get Root Zone RRSIG DNS Key
 
 ### CONTAINERS & VISUALIZATION
@@ -515,6 +518,6 @@ Terms & Concepts:
 - Infrastructure Stack: Facilities, infrastructure, servers, virtualization, O/S, Container, runtime, Data, Application
 - Unit of Consumption: What you use/pay for. This is what makes each service model below, different. Eg Virtual machine
 - Infrastructure as a Service (IaaS): Provider manages facilities, infrastructure, servers, virtualization. You manage the rest. Unit of consumption is O/S or Virtual Machine
--- AWS EC2 uses IaaS
+  - AWS EC2 uses IaaS
 - Platform as a Service (PaaS): Provider manages facilities, infrastructure, servers, virtualization, O/S, Container, runtime. You consume the runtime environment.
 - Software as a Service (SaaS): Provider manages facilities, infrastructure, servers, virtualization, O/S, Container, runtime, Data. You consume the application.
