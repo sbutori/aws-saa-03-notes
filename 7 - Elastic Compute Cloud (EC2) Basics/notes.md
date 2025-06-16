@@ -2,41 +2,69 @@
 
 - EC2 provides virtualization as a service (IaaS).
 
-- Within an O/S, parts of it, the kernel run in what's called *privileged mode* -- meaning it can interact with the system's hardware.
-  - Above the O/S applications run in User Mode (or un-privileged mode). They cannot interact with hardware.
-  - An app has to make a *system call* to the kernel to interact with hardware.
+- Virtualization is the process of running **more than one Operating System (O/S) on a single piece of physical hardware.**
+
+- An O/S must interact with physical hardware such as CPU, Memory, Network and I/O Devices.
+
+- The part of the O/S that can interact with the system's hardware is called the *kernel*, which runs in what's called *privileged mode*
+
+- Applications run in *user mode* (or un-privileged mode). They cannot interact with hardware.
+  - An application has to make a *system call* to the kernel to interact with hardware. It cannot directly interact with the hardware.
   - If anything but the O/S attempts to make a privileged call, the system will detect and cause a system-wide error, generally crashing the system (or at min the app)
 
-- Virtualization deals with the process of running more than one O/S on a single piece of physical hardware.
-  - With multiple O/S's on a single bit of hardware, all O/S's will expect to be privileged and this conflict can also cause crashes -- virtualization is the solution to this problem
+- A CPU can only have one thing running as privileged. If multiple O/S try to run in one hardware with their own set of applications, they will conflict and crash.
+  - Virtualization seeks to solve exactly the problem of having these multiple O/S running on a single bit of hardware.
 
-## Emulated Virtualization
+## Emulated Virtualization (Software Virtualization)
 
-- Virtualization used to have to be done as software and this was slow
-- The first way this appeared was with *emulated virtualization* (the hypervisor translates every single instruction) -- this is super slow
+- Host operating system ran on the hardware in privileged mode(with additional capability called *hypervisor*)
+  - The guest operating systems ran on top of the host inside a container called a *Virtual Machine* (VM)
+  - Each *Virtual Machine* is an unmodified O/S with a virtual allocation of physical resources
+
+- Guest O/S believed that the emulated hardware provided by hypervisors were actually real and running on real hardware, making *privileged* calls
+  - Without special arrangements the system would crash or overwrite each other memories
+
+- In other to avoid this problem the hypervisor does *binary translation* which translates any *privileged* operations on the fly in software by the hypervisor
+  - This means guest O/S need no modification...
+  - ...but they are **REALLY slow** (50% or more)
 
 ## Para-Virtualization
 
-- Para-Virtualization means the O/S's are running in virtual machines, but instead of directly translating every single instruction, they modify the guest O/S's so that it is emulation aware:
-  - Non-privileged (user-level) instructions are directly executed by the hardware.
-  - Privileged calls are replaced with "hypercalls" and trapped to the hypervisor.
+- Para-Virtualization means the O/S's are running in virtual machines containers with virtual resources
+
+- However, instead of directly translating every single instruction, they modify the guest O/S's so that it is emulation aware:
+  - Non-privileged (user-level) instructions are now directly executed by the hardware!
+  - But privileged calls are replaced with *hypercalls* and trapped by the hypervisor.
 
 - The main disadvantage is that this requires O/S modification. Closed systems such as Windows don't support this.
 
-## Hardware Assisted Virtualization
+- It is still a set of software processes designed to trick the O/S or Hardware that nothing had changed
 
-- The major improvement to virtualization as it made the physical hardware itself became virtualization aware. As with para-virtualization:
-  - Non-privileged (user-level) instructions are directly executed by the hardware.
-  - Only privileged (system-level) instructions are trapped to the hypervisor (which expects this) through hypercalls.
+## Hardware Assisted Virtualization (HAV)
 
-- The difference from para-virtualization is that it does not require O/S modification, just that the hardware (CPU) supports this.
+- The major improvement to virtualization as it made the physical hardware itself became **virtualization aware.**
+
+- The CPU knows that virtualization exists and contains specific instructions and capabilities so that the hypervisor can directly control and configure its support
+
+- Privileged instructions are now trapped by the CPU and the system does not halt
+  - The instructions can't be executed "as is" so they are redirected to the hypervisor by the hardware
+  - The hypervisor then handles how they are executed
+
+- With HAV there's very little performance degradation and it does not require O/S modification, just that the hardware (CPU) supports this.
 
 ## SR-IOV
 
-- *Single-root IO Virtualization.* Allows a network card to present itself as several "mini cards". Splits a physical card into several logical cards to present to guest O/S's.
+- Even though HAV helps a lot, what actually tends to matter for a VM is Input/Output (I/O) operations like network transfer and disk I/O
+
+- The VMs have what they think is physical hardware, but they all connect to an actual single piece of hardware like a network card, which sits on the Host.
+  - Unless you have a single physical network card per VM there's always some level of software getting in the way and this impacts performance.
+
+- **Single-root IO Virtualization (SR-IOV)** allows a network card or add-on card to present itself as several *mini cards*. This splits a physical card into several logical cards to present to guest O/S's.
 
 - SR-IOV is a method of device virtualization that provides higher I/O performance and lower CPU utilization when compared to traditional virtualized network interfaces.
-  - Enhanced networking provides higher bandwidth, higher packet per second (PPS) performance, and consistently lower inter-instance latencies.
+
+- In EC2 this feature is called **Enhanced Networking**
+  - Enhanced networking provides higher speeds, lower latencies and consistent lower latency even at high I/O loads
   - SR-IOV enables network traffic to bypass the software switch layer of the Hyper-V virtualization stack.
   - There is no additional charge for using enhanced networking.
 
@@ -47,112 +75,127 @@ http://www.brendangregg.com/blog/2017-11-29/aws-ec2-virtualization-2017.html
 
 # EC2 Architecture and Resilience
 
-Looking specifically at EC2 Hosts, how they are physically architected, why they are AZ resilient, and how the resilience of the Elastic Block Store (EBS) factors into our decisions as Solutions Architects.
-
-- EC2 instances are Virtual Machines (VMs)
+- EC2 instances are **Virtual Machines**(VMs)
   - VMs = O/S + Resources
-- EC2 instances run on **EC2 Hosts**, which are either:
-  - SHARED Hosts (same hardware is shared across different AWS customers, but every customer is isolated from each other and you pay for instance on it); or
-  - DEDICATED (entire hardware is yours, you don't have to share with others)
 
-- EC2 is a **AZ resilient service**.
+- EC2 instances run on **EC2 Hosts** physical service hardware managed by AWS, which are either:
+  - *SHARED* Hosts by default (same hardware is shared across different AWS customers, but every customer is *isolated* from each other and you pay for instance on it); or
+  - *DEDICATED* Hosts (entire hardware is yours, you don't have to share with others)
+
+- [EXAM]: EC2 is a **AZ resilient service**.
   - **Hosts run inside a single AZ.**
-  - AZ fails -> Hosts fails -> Instances fails
+  - If AZ fails -> EC2 Hosts inside fails -> EC2 Instances fails
 
-## EC2 Hosts
+## EC2 Architecture
 
-- EC2 hosts have some local hardware
+- EC2 hosts have some local hardware:
  - CPU
  - Memory (RAM)
  - Temporary local storage called *Instance Store*
-  - If the instance moves to another one this is lost
+  - If the EC2 instance moves to another EC2 Host this storage is lost
  - Two types of networking:
   1. Data Network
     - When instances are provisioned into a specific subnet within a VPC, a primary *Elastic Network Interface (ENI)* is provisioned in a subnet which maps to the physical hardware (Data Networking) on the EC2 host.
+    - Instances can have multiple ENIs even in different subnets, *as long as they are in the same AZ!*
   2. Storage
-    - EC2 Host can connect to Elastic Block Store (EBS), a network based storage.
-    - EBS are also AZ Resilient.
-    - EBS let's you allocate **volumes**, or portions of persistent storage, and these can be allocated to instances in the same AZ.
-- An Instance runs on a specific host and if you restart the instance, it will stay on that host.
+    - EC2 Host can connect to *Elastic Block Store*(EBS), a network based storage.
+      - EBS is also *AZ Resilient*.
+      - EBS services run inside an AZ and you can't access them cross zone.
+      - EBS lets you allocate **volumes**, or portions of persistent storage, and these can be allocated to instances only in the same AZ.
+
+- An Instance runs on a specific host. If you restart the instance, it will stay on that host.
   - An instance will only change a host if:
     1. The host fails or is taken down for maintenance by AWS
     2. An instance is STOPPED and then STARTED (different than just restarting)
   - In any case, instances will also be in the same AZ. Instances can't migrate automatically between AZs.
 
-- Migrations to new AZs are 'possible', but it's essentially copying an instance into a new AZ (snapshots and AMIs)
+- Migrations between AZs are 'possible', but it's essentially copying an instance into a new AZ (using snapshots and AMIs)
 
 - Instances runnings on an EC2 Host share the host's resources.
-  - You can have instances of different sizes sharing a host, but the general rule is the same type/generation of EC2 instance sharing a host.
+  - You can have instances of different sizes sharing a host, but the general rule is that instances of same type/generation will share a EC2 Host.
+  - Think that a EC2 Host is from a certain year and has a generation (certain type of CPU, memory and storage)
 
-EXAM: An EC2 Host runs within a SINGLE AZ. They are AZ Resilient.
-EXAM: EC2 Instances are locked inside one specific AZ. Same with EBS volumes.
+[EXAM]: An EC2 Host runs within a SINGLE AZ. They are AZ Resilient.
+[EXAM]: EC2 Instances run on an EC2 Host and thus are locked inside one specific AZ. Same with EBS volumes.
 
 ## What's EC2 Good For?
 
-- Traditional **O/S+Application** Compute
-- **Long-Running** Compute.
-- **Server** style application (traditional app in an o/s awaiting incoming connections)
-- Great for occasional **bursts** or **steady state** load requirements
+- Traditional **O/S and Application** Compute
+- **Long-Running** Compute (24/7/365)
+- **Server** style application (traditional apps running in an O/S, awaiting incoming connections)
+- Great for occasional **bursts** *or* **steady state** load requirements
 - **Monolithic** application stacks
-- **Migrated** application workloads
+- **Migrated** application workloads (lift-and-shift)
 - **Disaster Recovery**
 
 - EC2 tends to be the *default* compute service within AWS.
 
 # EC2 Instance Types
 
-- EC2 instance = O/S + allocation of resources
 - You can select instance type/size for more granular control of resources
 
 - Choosing a different instance type influences a few things:
-  - The raw amount of resources you get: virtual CPU, memory, local storage capacity, and type of storage
-  - Resource Ratios
-  - Storage and Data Network Bandwidth
-  - The System Architecture / Vendor you have available
+  - The **raw** amount of resources you get: virtual CPU, memory, local storage capacity, and type of storage
+  - **Resource Ratios** (e.g. CPU to RAM)
+  - **Storage** and **Data** Network **Bandwidth**
+  - The System Architecture / Vendor you have available (e.g. x86 vs. ARM, Intel vs. AMD)
   - Additional feature and capabilities such as allocation of GPUs, field programmable gate arrays (FPGAs)
 
 ### EC2 Instances - Grouped into 5 Main Categories:
 
-- General Purpose (Default): Diverse workloads, equal resource ratios
+- **General Purpose** (should be used as the *default*, only move away if you have specific needs): Diverse workloads, equal resource ratios
 
-- Compute Optimized: Designed for media processing, high performance computing, modeling, gaming, ML; access to the latest high performance CPUs. Resource Ratio where more CPU is offered the memory
+- **Compute Optimized**: Designed for media processing, high performance computing, scientific modeling, gaming, machine learning. Access to the latest high performance CPUs. Resource Ratio offers more CPU compared to memory.
 
-- Memory Optimized: Inverse of Compute Optimized. Processing large in-memory datasets (Ex. in-memory caching), some database workloads
+- **Memory Optimized**: Inverse of Compute Optimized. Processing large in-memory datasets (Ex. in-memory caching), some database workloads
 
-- Accelerated Computing: Dedicated GPUs for high scale parallel processing and modeling, custom programmable hardware known as field programmable gate arrays (FGPAs). Accelerated Computing category is often for niche requirements; you'll know when you need this category
+- **Accelerated Computing**: Dedicated Hardware GPUs for high scale parallel processing and modeling. Custom programmable hardware known as field programmable gate arrays (*FGPAs*). Accelerated Computing category is often for niche requirements - you'll know when you need this category.
 
-- Storage Optimized: Large amounts of super fast, local storage. Massive amounts of IO operations/second, scale out transactional databases, data warehousing, Elasticsearch, analytics workloads. The Storage Optimized category is great for applications that have serious demands on sequential and random IO.
+- **Storage Optimized**: Large amounts of super fast, local storage. High sequential transfer rates or massive amounts of I/O operations per second. Scale out transactional databases, data warehousing, Elasticsearch, analytics workloads. The Storage Optimized category is great for applications that have serious demands on sequential and random I/O.
 
-### EC2 Istance Types: Decoding the naming scheme
+### EC2 Instance Types: Decoding the naming scheme
+
 Ex. R5dn.8xlarge. <- Example of type of EC2 instance
-- This is known as an Instance Type. If ops team member asks what instance type we need? You'd provide this full name
-- Start letter, R, is the INSTANCE FAMILY
-- 2nd character, 5, is the INSTANCE GENERATION. For example, a C4 would be the 4th generation of the C family of instance. Always select the most recent generation, with exception
-- "8xlarge" is the size of the instance. Sizes: Nano, mirco, small, medium. large, xl, 2xl, 4xl, 8xl, and so on... Price premium on higher end... often better to scale system with large number of small sizes
-- "dn" can vary... this collection of letters between family-generation and size may not always be present. These letters denote add'l capabilities. Ex. 'a' signifies AMD CPUs (you don't need to memorize these letters for the exam)
 
-* Table / Visual of Instance Categories/Types/Details and Notes: https://imgur.com/a/LXpddQS
-** 'c' stands for computer. Compute Optimized
-** 'r' stands for RAM. Memory Optimized
-** 'I' stands for I/O. Storage Optimized
-** 'D' Dense Storage. Storage Optimized
-** 'G' GPU. Accelerated Computing
-** 'P' Parallel Processing. Accelerated Computing
+- This is known as an Instance Type. If a operations team member asks what instance type we need? You provide this full name.
+  - Start letter, R, is the INSTANCE FAMILY
+  - 2nd character, 5, is the INSTANCE GENERATION. For example, a C4 would be the 4th generation of the C family of instance.
+    - Always select the most recent gen.
+    - Only if it is not available on your region or if you have strict testing requirements to update you should stay on an older gen.
+  - "dn" can vary
+    - This collection of letters between family-generation and size may not always be present.
+    - These letters denote additional capabilities (e.g. 'a' signifies AMD CPUs, 'n' is network optimized, 'e' is extra capacity for RAM or storage and so on).
+    - Some examples:
+      - 'c' stands for computer. Compute Optimized
+      - 'r' stands for RAM. Memory Optimized
+      - 'I' stands for I/O. Storage Optimized
+      - 'D' Dense Storage. Storage Optimized
+      - 'G' GPU. Accelerated Computing
+      - 'P' Parallel Processing. Accelerated Computing
+    - You don't need to memorize these extra capabilities for the exam.
+  - "8xlarge" is the size of the instance. Sizes: nano, micro, small, medium, large, xl, 2xl, 4xl, 8xl, and so on...
+    - There's a price premium on the higher end of instance sizes
+    - It's often better to scale horizontally the system with large number of small sizes
+
 
 ### EC2 Instance Type Resources
+
 - https://aws.amazon.com/ec2/instance-types/
 - https://ec2instances.info/
-- Table / Visual of Instance Categories/Types/Details and Notes: https://imgur.com/a/LXpddQS
+- Table / Visual of Instance Categories/Types/Details and Notes:
 
+![EC2 Instance Types](instances.png)
 
-## DEMO - EC2 SSH vs EC2 Instance Connect
+## [DEMO] EC2 SSH vs EC2 Instance Connect
+
 Amazon EC2 Instance Connect provides a simple and secure way to connect to your Linux instances using Secure Shell (SSH). With EC2 Instance Connect, you use AWS Identity and Access Management (IAM) policies and principals to control SSH access to your instances, removing the need to share and manage SSH keys.
 
 1. Make keypair for SSH: EC2 > Key Pairs, Create key pair > since we already have 'A4L' kp, we're good
 2. 1-Click Deploy: Click 1-Click Deploy lesson link > Create Stack, Acknowledge, Create stack
 3. Connect to Instance via SSH: EC2 > Instances > A4L, Connect, SSH Client > Open your Terminal > cd to directory with Key Pair .pem file > Paste command, Enter, 'Yes' for fingerprint
 4. Connect with EC2 Instance Connect:  EC2 > Instances > A4L, Connect, EC2 Instance Connect
-- NOTE: EC2 Instance Connect is not originating connections through your machine (not your IP)
+  - NOTE: EC2 Instance Connect is not originating connections through your machine (not your IP)
+  - Use [this list](https://ip-ranges.amazonaws.com/ip-ranges.json) to get the IP that matches the AWS Region of your EC2 Instance and has service as EC2_INSTANCE_CONNECT. Allow it on your Security Group
 5. Clean up > CFN > Delete Stack
 
 

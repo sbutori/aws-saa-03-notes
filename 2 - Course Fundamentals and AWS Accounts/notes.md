@@ -3,23 +3,23 @@
 - AWS Accounts are not only required to use AWS services, they are also one of the most important tools available to a solutions architect.
 
 - Many students confuse accounts with users inside the accounts.
-  - An org may use one account or many thousands.
+  - An organization ("org") may use one account or many thousands.
   - Bigger orgs generally use multiple AWS accounts.
 
 - At a high level, AWS Account is a *container* for Identities (users) (which you log in with) and Resources (which you provision).
 
-- When creating an AWS account you need to provide:
+- When creating an AWS account you need to provide the following:
   - Unique email address (for EACH AWS account); this creates a special type of identity: the account root user
-  - Provide a payment method, generally a Credit Card (No need to spend: You can choose a Free tier and create a zero-spend budget)
+  - Payment method, generally a Credit Card (No need to spend: You can choose a Free tier and create a zero-spend budget)
 
 - Root Users can only access their own accounts.
   - Initially, it is also the only user. Root user has full control over the one specific AWS account and any resources inside it.
-  - **Root user CANNOT be restricted in any way.**
+  - **The root user CANNOT be restricted in any way.**
   - Protect the root username and password and don't use them unless necessary.
 
 ## Billing
 
-- Credit Card used to open account is the Account Payment Method.
+- The Credit Card used to open account is the Account Payment Method.
 - Any billable usage is charged to this CC.
 - "Pay-as-you-go" platform.
 - There is a free tier which we use in this course.
@@ -27,16 +27,16 @@
 ## Security
 
 - You can create restricted identities/users using Identity and Access Management (IAM).
-  - Users, Groups, and Roles can also be created and given FULL or LIMITED permissions.
+  - *Users*, *Groups*, and *Roles* can be created and given FULL or LIMITED permissions.
   - All of these ID's start off with NO access/permissions in the account.
 
 - The IAM service is Account specific.
-  - Cross-account permissions are a possibility, as well (to be covered later).
+  - Cross-account permissions are a possibility as well, as we'll see later.
 
 ## Boundary of the Account
 
 - AWS accounts are really good at containing what's inside the accounts; bad employee or bad actor, etc.
-  - Having separate AWS accounts for different uses (DEV, PROD, etc), you can limit overall damage.
+  - Having separate AWS accounts for different uses (DEV, PROD, etc), allows you to limit overall damage from a bad actor.
 
 - By default, all access to an AWS account is denied except for the root user.
 
@@ -46,7 +46,7 @@
 
 In this demo, we'll:
 
-1. Create General AWS account (*MANAGEMENT). This account's root user will be what we log in with (root user = account specific).
+1. Create a General AWS account (*MANAGEMENT). This account's root user will be what we log in with (root user = account specific).
 2. Add root user MFA for security.
 3. Create a Budget to protect against unintended costs.
 4. Create an IAM user, IAMADMIN. Give permissions. Then we'll use this ID for the course.
@@ -62,9 +62,9 @@ In this demo, we'll:
 
 ### Account Tips
 
-- [TIP]: Always a good idea to update Alternate Contacts if you're using this account in the real world
-- [TIP]: IAM User and Role Access to Billing Information, click "Edit", check Activate IAM Access
-  - If this IAM box isn't checked, even an IAM ID will full admin permissions wouldn't be able to access the billing console
+- [TIP]: It's always a good idea to update Alternate Contacts if you're using this account in the real world
+- [TIP]: To allow IAM User and Role Access to Billing Information, click "Edit", check Activate IAM Access
+  - If this IAM box isn't checked, even an IAM ID will full admin permissions wont't be able to access the billing console
 
 
 ## 2. Add root user MFA to secure the General AWS account
